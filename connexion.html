@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Connexion — Collection Kaela</title>
+  <meta name="description" content="Connectez-vous à votre espace élève ou professeur Collection Kaela.">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main" class="auth">
+    <div class="auth__grid">
+      <div class="auth__aside">
+        <span class="eyebrow">Bon retour</span>
+        <h2>Reprenez vos révisions là où vous les avez laissées</h2>
+        <img src="img/hero.svg" alt="" width="560" height="480" style="margin-top:24px;border-radius:24px">
+      </div>
+      <form class="auth__card" id="login" novalidate>
+        <h1>Se connecter</h1>
+        <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="password">Mot de passe</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+        <p class="alert" id="error" role="alert" hidden></p>
+        <button class="btn btn--primary btn--block" type="submit">Se connecter</button>
+        <p class="muted" style="margin:0">Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
