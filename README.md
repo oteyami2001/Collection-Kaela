@@ -31,7 +31,10 @@ python3 -m http.server 8000
 - **Cours** : `data/courses.json` — chaque leçon : `t` (titre), `d` (durée en minutes), `v` (lien YouTube, facultatif)
 - **Professeurs** : `data/teachers.json`
 - **Témoignages / FAQ** : `data/testimonials.json`, `data/faq.json`
-- **Couleurs et polices** : variables `:root` en haut de `assets/css/styles.css` (vert `--brand` et orange `--accent`)
+- **Livres Édition Kaela** : `data/books.json` (couvertures dans `img/livres/`)
+- **Photos d'élèves** : `img/eleves/` · **Logo** : `img/logo-edition-kaela.webp` (version blanche pour le pied de page : `img/logo-edition-kaela-blanc.webp`)
+- **Coordonnées** (téléphones, e-mail, adresse) : constante `CONTACT` dans `assets/js/common.js`
+- **Couleurs et polices** : variables `:root` en haut de `assets/css/styles.css` (bleu `--brand` et marine `--brand-dark` du logo, rouge `--accent` et jaune `--sun` des affiches)
 
 Les professeurs, cours et témoignages actuels sont **des exemples** à remplacer par les vrais.
 

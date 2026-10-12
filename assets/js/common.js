@@ -79,12 +79,28 @@ function teacherCard(t, data, count) {
   </article>`;
 }
 
+function bookCard(b) {
+  const exam = b.exam ? `<span class="badge badge--${esc(b.exam)}">${esc(LEVELS[b.exam])}</span>` : "";
+  return `<article class="book">
+    <img src="${esc(b.image)}" alt="Couverture du livre EDHC ${esc(b.title)} ${esc(b.grade)} — Édition Kaela" loading="lazy" width="300" height="470">
+    <div class="book__body">
+      <div class="card__badges"><span class="badge badge--soft">${esc(b.grade)}</span>${exam}</div>
+      <h3>EDHC ${esc(b.title)}</h3>
+      <p>${esc(b.tagline)}</p>
+    </div>
+  </article>`;
+}
+
 // ----- Layout -----
-const LOGO = `<svg width="36" height="36" viewBox="0 0 36 36" aria-hidden="true">
-  <rect width="36" height="36" rx="10" fill="var(--brand)"/>
-  <path d="M8 11c3.5-1.6 7-1.6 10 .6v15c-3-2.2-6.5-2.2-10-.6z" fill="#fff"/>
-  <path d="M28 11c-3.5-1.6-7-1.6-10 .6v15c3-2.2 6.5-2.2 10-.6z" fill="var(--accent)"/>
-</svg>`;
+// Brand logo (img/logo-edition-kaela*.webp) and contact details from the Édition Kaela flyer.
+const LOGO = `<img class="logo__img" src="img/logo-edition-kaela.webp" alt="" width="125" height="50">`;
+const LOGO_LIGHT = `<img class="logo__img" src="img/logo-edition-kaela-blanc.webp" alt="" width="150" height="60">`;
+const CONTACT = {
+  phones: ["+225 07 07 81 50 28", "+225 01 41 73 77 85"],
+  email: "editionkaela@gmail.com",
+  address: "En face de l'église Saint-André, Yopougon — Abidjan"
+};
+const tel = n => `tel:${n.replace(/\s+/g, "")}`;
 
 function renderHeader(subjects) {
   const user = getUser();
@@ -96,8 +112,8 @@ function renderHeader(subjects) {
   $("#site-header").outerHTML = `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="Collection Kaela, accueil">${LOGO}
-        <span class="logo__text">Collection Kaela<small>Préparation d'examen</small></span>
+      <a href="index.html" class="logo" aria-label="Édition Kaela — Préparation d'examen, accueil">${LOGO}
+        <span class="logo__text">Préparation<small>d'examen</small></span>
       </a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
         <ul class="nav__list">
@@ -113,8 +129,8 @@ function renderHeader(subjects) {
               </div>
             </div>
           </li>
+          <li class="nav__item"><a class="nav__link" href="index.html#livres">Nos livres</a></li>
           <li class="nav__item"><a class="nav__link" href="professeurs.html">Professeurs</a></li>
-          <li class="nav__item"><a class="nav__link" href="index.html#methode">Comment ça marche</a></li>
           <li class="nav__item"><a class="nav__link" href="inscription.html?role=prof">Devenir professeur</a></li>
         </ul>
         <div class="nav__actions">${actions}</div>
@@ -146,8 +162,13 @@ function renderFooter() {
   <footer class="footer">
     <div class="container footer__grid">
       <div>
-        <a href="index.html" class="logo logo--light">${LOGO}<span class="logo__text">Collection Kaela<small>Préparation d'examen</small></span></a>
-        <p>La plateforme ivoirienne qui accompagne les élèves vers la réussite au BEPC et au BAC.</p>
+        <a href="index.html" class="logo logo--light" aria-label="Édition Kaela, accueil">${LOGO_LIGHT}</a>
+        <p>Préparation d'Examen Collection Kaela : la plateforme ivoirienne qui accompagne les élèves vers la réussite au BEPC et au BAC.</p>
+        <ul class="footer__contact">
+          <li>📞 ${CONTACT.phones.map(n => `<a href="${tel(n)}">${n}</a>`).join(" · ")}</li>
+          <li>✉️ <a href="mailto:${CONTACT.email}">${CONTACT.email}</a></li>
+          <li>📍 ${CONTACT.address}</li>
+        </ul>
       </div>
       <nav aria-label="Cours"><h3>Cours</h3><ul>
         <li><a href="catalogue.html?niveau=bepc">Cours BEPC</a></li>
@@ -157,14 +178,15 @@ function renderFooter() {
         <li><a href="professeurs.html">Nos professeurs</a></li>
         <li><a href="inscription.html?role=prof">Devenir professeur</a></li></ul></nav>
       <nav aria-label="À propos"><h3>À propos</h3><ul>
+        <li><a href="index.html#livres">Nos livres</a></li>
         <li><a href="index.html#mission">Notre mission</a></li>
         <li><a href="index.html#bientot">Nouveautés à venir</a></li></ul></nav>
       <nav aria-label="Aide"><h3>Aide</h3><ul>
         <li><a href="index.html#faq">Questions fréquentes</a></li>
-        <li><a href="#">Contact</a></li></ul></nav>
+        <li><a href="mailto:${CONTACT.email}">Contact</a></li></ul></nav>
     </div>
     <div class="container footer__bottom">
-      <p>© ${new Date().getFullYear()} Collection Kaela · Côte d'Ivoire</p>
+      <p>© ${new Date().getFullYear()} Édition Kaela · Préparation d'Examen Collection Kaela · Côte d'Ivoire</p>
       <ul><li><a href="#">Mentions légales</a></li><li><a href="#">CGU</a></li><li><a href="#">Confidentialité</a></li></ul>
     </div>
   </footer>`;

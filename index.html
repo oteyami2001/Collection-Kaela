@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Collection Kaela — Préparation au BEPC et au BAC en Côte d'Ivoire</title>
+  <title>Préparation d'Examen Collection Kaela — BEPC et BAC en Côte d'Ivoire</title>
   <meta name="description" content="Plateforme ivoirienne de préparation aux examens : cours en vidéo de professeurs qualifiés pour réussir le BEPC et le BAC, à votre rythme.">
-  <meta name="theme-color" content="#0b7a4b">
+  <meta name="theme-color" content="#0a6cbd">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,8 @@
         </div>
         <div class="hero__visual reveal" aria-hidden="true">
           <div class="blob"></div>
-          <img src="img/hero.svg" alt="" width="560" height="480">
+          <div class="hero__photo"><img src="img/eleves/groupe-maths.webp" alt="" width="960" height="640" fetchpriority="high"></div>
+          <img class="hero__book" src="img/livres/preparation-bac.webp" alt="" width="300" height="470">
           <div class="float float--a"><span class="dot"></span> Vidéos à revoir à volonté</div>
           <div class="float float--b">📱 Sur téléphone et ordinateur</div>
         </div>
@@ -94,8 +95,33 @@
       </div>
     </section>
 
+    <!-- Books -->
+    <section class="section" id="livres">
+      <div class="container">
+        <div class="section__row section__head reveal" style="max-width:none">
+          <div>
+            <span class="eyebrow">Édition Kaela</span>
+            <h2>Nos livres pour réviser</h2>
+            <p>La collection EDHC accompagne les cours en vidéo : résumés de cours, méthodes, exercices et sujets d'examens corrigés.</p>
+          </div>
+        </div>
+        <div class="features" aria-label="Contenu des livres">
+          <span>📚 Cours complets et clairs</span><span>✏️ Exercices et corrigés</span><span>✅ Sujets d'examens corrigés</span>
+        </div>
+        <div class="books" id="books"></div>
+        <div class="books-cta reveal">
+          <div><strong>Commandez vos livres Édition Kaela</strong>
+            <p>Informatique et Physique-Chimie de la 6e à la Terminale, EDHC de la 6e à la 3e, et bien plus.</p></div>
+          <div class="books-cta__actions">
+            <a class="btn btn--sun" href="tel:+2250707815028">📞 07 07 81 50 28</a>
+            <a class="btn btn--on-dark" href="mailto:editionkaela@gmail.com">✉️ Écrire</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- How it works -->
-    <section class="section" id="methode">
+    <section class="section section--alt" id="methode">
       <div class="container">
         <header class="section__head reveal"><h2>Comment ça marche ?</h2><p>Quatre étapes pour aborder l'examen avec confiance.</p></header>
         <ol class="steps">
@@ -108,19 +134,15 @@
     </section>
 
     <!-- Zig-zag: students / teachers -->
-    <section class="section section--alt" id="mission">
+    <section class="section" id="mission">
       <div class="container zz">
         <div class="zz__row reveal">
-          <div class="zz__media zz__media--student" aria-hidden="true">
-            <svg viewBox="0 0 420 300"><rect x="20" y="30" width="380" height="240" rx="18" fill="#fff"/><rect x="44" y="56" width="200" height="120" rx="12" fill="#0b7a4b"/><circle cx="144" cy="116" r="24" fill="#fff"/><path d="M137 104v24l20-12z" fill="#0b7a4b"/><rect x="264" y="60" width="112" height="12" rx="6" fill="#12201a"/><rect x="264" y="84" width="90" height="8" rx="4" fill="#c9d3cd"/><rect x="264" y="104" width="100" height="8" rx="4" fill="#c9d3cd"/><rect x="264" y="136" width="70" height="28" rx="14" fill="#f77f00"/><rect x="44" y="200" width="332" height="10" rx="5" fill="#e2e8e4"/><rect x="44" y="200" width="220" height="10" rx="5" fill="#0b7a4b"/><rect x="44" y="226" width="140" height="8" rx="4" fill="#c9d3cd"/></svg>
-          </div>
+          <div class="zz__photo"><img src="img/eleves/eleve-francais.webp" alt="Élève qui révise avec un livre EDHC Français 3e d'Édition Kaela" width="960" height="640" loading="lazy"></div>
           <div><span class="eyebrow">Pour les élèves</span><h2>Des cours de qualité, accessibles à tous</h2><p>Notre mission : rendre les meilleurs cours accessibles aux jeunes de Côte d'Ivoire, où qu'ils soient.</p>
             <ul class="checks"><li>Cours adaptés au programme du BEPC et du BAC</li><li>Professeurs au choix, dans chaque matière</li><li>Suivi des leçons déjà regardées</li></ul></div>
         </div>
         <div class="zz__row zz__row--rev reveal">
-          <div class="zz__media zz__media--teacher" aria-hidden="true">
-            <svg viewBox="0 0 420 300"><rect x="20" y="30" width="380" height="240" rx="18" fill="#fff"/><circle cx="96" cy="110" r="40" fill="#fef0e3"/><circle cx="96" cy="98" r="16" fill="#f77f00"/><path d="M68 136c5-16 16-22 28-22s23 6 28 22" fill="#f77f00"/><rect x="160" y="80" width="200" height="14" rx="7" fill="#12201a"/><rect x="160" y="106" width="150" height="8" rx="4" fill="#c9d3cd"/><rect x="44" y="180" width="332" height="56" rx="12" fill="#f5f8f6"/><rect x="60" y="196" width="40" height="24" rx="6" fill="#0b7a4b"/><rect x="114" y="200" width="160" height="8" rx="4" fill="#12201a"/><rect x="114" y="214" width="100" height="6" rx="3" fill="#c9d3cd"/><rect x="296" y="196" width="64" height="24" rx="12" fill="#f77f00"/></svg>
-          </div>
+          <div class="zz__photo"><img src="img/eleves/groupe-physique.webp" alt="Trois élèves étudient ensemble le livre EDHC Physique Terminale" width="960" height="640" loading="lazy"></div>
           <div><span class="eyebrow">Pour les professeurs</span><h2>Partagez votre savoir avec plus d'élèves</h2><p>Créez votre profil dans votre matière, publiez vos cours en vidéo et accompagnez davantage d'élèves vers la réussite.</p>
             <ul class="checks"><li>Un profil professeur par matière</li><li>Publication et organisation de vos vidéos</li><li>Une audience d'élèves en classe d'examen</li></ul></div>
         </div>
@@ -161,7 +183,15 @@
     <!-- Testimonials -->
     <section class="section">
       <div class="container">
-        <header class="section__head reveal"><h2>Ils révisent avec Collection Kaela</h2><p>Témoignages d'exemple — remplacez-les par ceux de vos élèves.</p></header>
+        <header class="section__head reveal"><h2>Ils révisent avec Collection Kaela</h2><p>Seul, entre amis ou en classe : chacun révise à sa façon.</p></header>
+        <div class="gallery reveal">
+          <img src="img/eleves/groupe-lecture.webp" alt="Trois élèves lisent les livres EDHC Français, Sciences Naturelles et Informatique" width="960" height="640" loading="lazy">
+          <img src="img/eleves/eleve-chimie.webp" alt="Élève qui lit le livre EDHC Chimie 2nde dans la cour" width="960" height="640" loading="lazy">
+          <img src="img/eleves/duo-sciences.webp" alt="Deux élèves étudient le livre EDHC Sciences Naturelles" width="960" height="640" loading="lazy">
+          <img src="img/eleves/eleve-maths.webp" alt="Élève souriant avec le livre EDHC Mathématiques 3e" width="960" height="640" loading="lazy">
+          <img src="img/eleves/eleve-chimie-classe.webp" alt="Élève en classe avec le livre EDHC Chimie" width="960" height="640" loading="lazy">
+        </div>
+        <p class="muted" style="font-size:.85rem">Témoignages d'exemple — remplacez-les par ceux de vos élèves.</p>
         <div class="testimonials" id="testimonials"></div>
       </div>
     </section>

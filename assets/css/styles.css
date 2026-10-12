@@ -1,17 +1,18 @@
-/* ===== Tokens — Collection Kaela (vert & orange, couleurs de la Côte d'Ivoire) ===== */
+/* ===== Tokens — Édition Kaela (bleu & marine du logo, rouge et jaune des affiches) ===== */
 :root {
-  --brand: #0b7a4b;
-  --brand-dark: #064d30;
+  --brand: #0a6cbd;
+  --brand-dark: #0b1f4a;
   --brand-tint: color-mix(in srgb, var(--brand) 8%, white);
-  --accent: #f77f00;
+  --accent: #e3262f;
+  --sun: #ffd400;
   --accent-tint: color-mix(in srgb, var(--accent) 14%, white);
-  --accent-ink: #8a3b00;
-  --ink: #12201a;
-  --ink-soft: #4a5a52;
-  --line: #e2e8e4;
+  --accent-ink: #9b1720;
+  --ink: #0e1630;
+  --ink-soft: #4a5370;
+  --line: #e1e6f0;
   --surface: #fff;
   --bg: #fff;
-  --bg-alt: #f5f8f6;
+  --bg-alt: #f4f7fc;
   --success: #0b7a4b;
   --bepc: #1d4ed8;
   --bac: #b45309;
@@ -20,8 +21,8 @@
   --font-body: "Inter", system-ui, sans-serif;
 
   --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(18 32 26 / .06);
-  --shadow-md: 0 8px 24px rgb(18 32 26 / .09);
+  --shadow-sm: 0 1px 2px rgb(14 22 48 / .06);
+  --shadow-md: 0 8px 24px rgb(14 22 48 / .10);
   --gutter: 16px;
   --section-y: 64px;
 }
@@ -55,8 +56,8 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 .btn:active { transform: translateY(1px); }
 .btn--primary { background: var(--brand); color: #fff; }
 .btn--primary:hover { background: var(--brand-dark); }
-.btn--accent { background: var(--accent); color: #1a0d00; }
-.btn--accent:hover { background: #e06f00; }
+.btn--accent { background: var(--accent); color: #fff; }
+.btn--accent:hover { background: #b81c24; }
 .btn--secondary { background: #fff; color: var(--brand); border-color: var(--brand); }
 .btn--secondary:hover { background: var(--brand-tint); }
 .btn--ghost { color: var(--ink); background: none; }
@@ -89,7 +90,9 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 .header__inner { display: flex; align-items: center; gap: 24px; min-height: 72px; position: relative; }
 .logo { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
 .logo svg { flex: none; }
-.logo__text { font: 800 1.1rem/1.1 var(--font-head); display: flex; flex-direction: column; }
+.logo__img { height: 50px; width: auto; }
+.logo__text { font: 800 .95rem/1.1 var(--font-head); display: flex; flex-direction: column; padding-left: 12px; border-left: 2px solid var(--line); color: var(--brand-dark); }
+.footer .logo__img { height: 64px; }
 .logo__text small { font: 600 .7rem var(--font-body); color: var(--accent-ink); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
 .nav { display: none; }
 .nav__list { display: flex; gap: 4px; }
@@ -215,7 +218,7 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 /* Band (coming soon) */
 .band { background: var(--brand-dark); color: #fff; padding: var(--section-y) 0; }
 .band .section__head p { color: rgb(255 255 255 / .82); }
-.band .eyebrow { background: rgb(255 255 255 / .12); color: #ffd7a8; }
+.band .eyebrow { background: var(--sun); color: var(--brand-dark); }
 .band__cards { display: grid; gap: 16px; margin: 0 0 32px; }
 .band article { background: rgb(255 255 255 / .08); border-radius: var(--r-md); padding: 24px; }
 .band article span { font-size: 1.5rem; display: block; margin-bottom: 8px; }
@@ -284,7 +287,7 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 /* ===== Forms ===== */
 .field { display: grid; gap: 6px; }
 .field label, .field .label { font-weight: 600; font-size: .9rem; }
-.field input, .field select, .field textarea, .select { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #c9d3cd; border-radius: var(--r-sm); font: 1rem var(--font-body); color: var(--ink); background: #fff; }
+.field input, .field select, .field textarea, .select { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #c5cddd; border-radius: var(--r-sm); font: 1rem var(--font-body); color: var(--ink); background: #fff; }
 .field textarea { min-height: 110px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus, .select:focus { outline: 3px solid color-mix(in srgb, var(--brand) 35%, white); border-color: var(--brand); }
 .field small { color: var(--ink-soft); }
@@ -371,7 +374,7 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 .footer a { color: rgb(255 255 255 / .8); text-decoration: none; }
 .footer a:hover { color: #fff; text-decoration: underline; }
 .logo--light, .footer .logo--light:hover { color: #fff; text-decoration: none; }
-.logo--light small { color: #ffb366; }
+.footer__contact { margin-top: 16px; display: grid; gap: 6px; font-size: .9rem; }
 .footer__grid > div > p { margin-top: 16px; max-width: 36ch; }
 .footer h3 { color: #fff; font-size: 1rem; }
 .footer li { margin-bottom: 8px; }
@@ -390,3 +393,44 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
   .reveal { opacity: 1; transform: none; transition: none; }
   * { transition: none !important; }
 }
+
+/* ===== Photos, livres ===== */
+.hero__photo { position: relative; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 3/2; }
+.hero__photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+.hero__visual .hero__book { position: absolute; width: 30%; right: -4%; bottom: -10%; transform: rotate(6deg); filter: drop-shadow(0 12px 20px rgb(14 22 48 / .3)); border-radius: 6px; }
+.hero__visual .float--a { bottom: 6%; }
+.hero h1 span { color: var(--accent); }
+
+.books { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.book { background: #fff; border-radius: var(--r-md); border: 1px solid var(--line); overflow: hidden; display: flex; flex-direction: column; transition: box-shadow .2s, transform .2s; }
+.book:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.book img { aspect-ratio: 300/470; object-fit: cover; width: 100%; background: var(--bg-alt); }
+.book__body { padding: 14px 16px 16px; display: grid; gap: 6px; }
+.book h3 { font-size: 1rem; margin: 0; }
+.book p { margin: 0; font-size: .85rem; color: var(--ink-soft); }
+@media (min-width: 640px) { .books { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .books { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.books-cta { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; margin-top: 32px; padding: 24px; border-radius: var(--r-lg); background: var(--brand-dark); color: #fff; }
+.books-cta p { margin: 0; color: rgb(255 255 255 / .85); }
+.books-cta strong { color: #fff; font-size: 1.15rem; display: block; }
+.books-cta__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn--sun { background: var(--sun); color: var(--brand-dark); }
+.btn--sun:hover { background: #ffe34d; }
+.features { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.features span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--r-pill); background: #fff; border: 1px solid var(--line); font-weight: 600; font-size: .875rem; }
+
+.zz__photo { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 3/2; box-shadow: var(--shadow-md); }
+.zz__photo img { width: 100%; height: 100%; object-fit: cover; }
+.zz__row--rev .zz__photo { order: 0; }
+@media (min-width: 900px) { .zz__row--rev .zz__photo { order: 2; } }
+
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 32px; }
+.gallery img { width: 100%; aspect-ratio: 3/2; object-fit: cover; border-radius: var(--r-md); }
+@media (max-width: 899px) { .gallery img:nth-child(5) { display: none; } }
+@media (min-width: 900px) { .gallery { grid-template-columns: 2fr 1fr 1fr; grid-template-rows: auto auto; } .gallery img:first-child { grid-row: span 2; height: 100%; aspect-ratio: auto; } }
+
+.auth__photo { margin-top: 24px; border-radius: var(--r-lg); width: 100%; aspect-ratio: 3/2; object-fit: cover; box-shadow: var(--shadow-md); }
+.book-aside { display: flex; gap: 16px; align-items: center; margin-top: 24px; padding: 16px; border-radius: var(--r-md); background: var(--bg-alt); border: 1px solid var(--line); }
+.book-aside img { width: 84px; border-radius: 6px; box-shadow: var(--shadow-md); flex: none; }
+.book-aside p { margin: 0; }
+.book-aside .eyebrow { margin-bottom: 6px; }

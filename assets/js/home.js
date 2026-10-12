@@ -25,6 +25,9 @@
     $$(".card", featuredEl).forEach(card => { card.hidden = f !== "all" && card.dataset.level !== f; });
   }));
 
+  const books = await load("books");
+  $("#books").innerHTML = books.map(bookCard).join("");
+
   $("#teachers").innerHTML = data.teachers.filter(t => t.id !== "me").slice(0, 4)
     .map(t => teacherCard(t, data, countBy("teacher", t.id))).join("");
 
