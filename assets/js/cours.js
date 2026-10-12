@@ -37,6 +37,17 @@ const youtubeId = url => {
       <a class="link-arrow" href="catalogue.html?prof=${encodeURIComponent(teacher.id)}">Tous ses cours →</a></div>`;
   }
 
+  // Matching Édition Kaela book: same subject, preferring the course's exam level
+  const books = await load("books");
+  const book = books.filter(b => b.subject === course.subject).sort((a, b) => (b.exam === course.level) - (a.exam === course.level))[0]
+    || books.find(b => !b.subject && b.exam === course.level);
+  if (book) {
+    $("#bookAside").hidden = false;
+    $("#bookAside").innerHTML = `<img src="${esc(book.image)}" alt="Couverture EDHC ${esc(book.title)} ${esc(book.grade)}" width="300" height="470" loading="lazy">
+      <div><span class="eyebrow">Le livre pour aller plus loin</span><p><strong>EDHC ${esc(book.title)} · ${esc(book.grade)}</strong></p>
+      <p class="muted">${esc(book.tagline)}</p><a class="link-arrow" href="index.html#livres">Voir nos livres →</a></div>`;
+  }
+
   const progress = getProgress();
   const done = new Set(progress[slug] || []);
   let current = Math.max(0, course.lessons.findIndex((_, i) => !done.has(i)));

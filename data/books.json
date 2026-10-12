@@ -1,0 +1,12 @@
+[
+  { "id": "preparation-bepc", "title": "Préparation BEPC", "subject": "", "grade": "3e", "exam": "bepc", "image": "img/livres/preparation-bepc.webp", "tagline": "Toutes les matières essentielles" },
+  { "id": "preparation-bac", "title": "Préparation BAC", "subject": "", "grade": "Tle", "exam": "bac", "image": "img/livres/preparation-bac.webp", "tagline": "Toutes les matières essentielles" },
+  { "id": "maths-3e", "title": "Mathématiques", "subject": "maths", "grade": "3e", "exam": "bepc", "image": "img/livres/maths-3e.webp", "tagline": "Cours · Exercices · Examens corrigés" },
+  { "id": "physique-tle", "title": "Physique", "subject": "physique", "grade": "Tle", "exam": "bac", "image": "img/livres/physique-tle.webp", "tagline": "Cours · Exercices · Examens corrigés" },
+  { "id": "chimie-2nde", "title": "Chimie", "subject": "chimie", "grade": "2nde", "exam": "", "image": "img/livres/chimie-2nde.webp", "tagline": "Cours · Exercices · Examens corrigés" },
+  { "id": "svt-1ere", "title": "Sciences Naturelles", "subject": "svt", "grade": "1ère", "exam": "", "image": "img/livres/svt-1ere.webp", "tagline": "Cours · Exercices · Examens corrigés" },
+  { "id": "informatique-tle", "title": "Informatique", "subject": "informatique", "grade": "Tle", "exam": "bac", "image": "img/livres/informatique-tle.webp", "tagline": "Initiation · Programmation · Examens corrigés" },
+  { "id": "francais-3e", "title": "Français", "subject": "francais", "grade": "3e", "exam": "bepc", "image": "img/livres/francais-3e.webp", "tagline": "Étude de textes · Exercices · Examens corrigés" },
+  { "id": "anglais-tle", "title": "Anglais", "subject": "anglais", "grade": "Tle", "exam": "bac", "image": "img/livres/anglais-tle.webp", "tagline": "Grammaire · Expression · Examens corrigés" },
+  { "id": "espagnol-tle", "title": "Espagnol", "subject": "espagnol", "grade": "Tle", "exam": "bac", "image": "img/livres/espagnol-tle.webp", "tagline": "Gramática · Expresión · Examens corrigés" }
+]
