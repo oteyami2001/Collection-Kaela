@@ -7,7 +7,7 @@
 
   $("#subjectOpts").innerHTML = data.subjects.map(s =>
     `<label class="opt"><input type="checkbox" name="matiere" value="${esc(s.id)}"> ${esc(s.label)}</label>`).join("");
-  $("#prof").insertAdjacentHTML("beforeend", data.teachers.map(t =>
+  $("#prof").insertAdjacentHTML("beforeend", data.teachers.filter(t => !t.pending).map(t =>
     `<option value="${esc(t.id)}">${esc(t.name)} — ${esc(data.bySubject[t.subject]?.label || "")}</option>`).join(""));
 
   // Restore state from the URL
@@ -31,7 +31,7 @@
     const prof = $("#prof").value;
     const terms = norm(q.value.trim()).split(/\s+/).filter(Boolean);
 
-    let list = data.courses.filter(c => {
+    let list = data.publicCourses.filter(c => {
       if (lvl && c.level !== lvl) return false;
       if (subs.length && !subs.includes(c.subject)) return false;
       if (prof && c.teacher !== prof) return false;

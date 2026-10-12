@@ -3,7 +3,7 @@
 (async () => {
   const data = await boot();
   const [testimonials, faq] = await Promise.all([load("testimonials"), load("faq")]);
-  const countBy = (key, id) => data.courses.filter(c => c[key] === id).length;
+  const countBy = (key, id) => data.publicCourses.filter(c => c[key] === id).length;
 
   $("#subjects").innerHTML = data.subjects.map(s => `
     <a class="domain" style="--c:${esc(s.color)}" href="catalogue.html?matiere=${encodeURIComponent(s.id)}">
@@ -18,7 +18,7 @@
 
   // Featured courses + level filter
   const featuredEl = $("#featured");
-  featuredEl.innerHTML = data.courses.filter(c => c.featured).map(c => courseCard(c, data)).join("");
+  featuredEl.innerHTML = data.publicCourses.filter(c => c.featured).slice(0, 8).map(c => courseCard(c, data)).join("");
   $$(".chip--filter").forEach(btn => btn.addEventListener("click", () => {
     $$(".chip--filter").forEach(b => b.setAttribute("aria-pressed", String(b === btn)));
     const f = btn.dataset.filter;
@@ -28,7 +28,7 @@
   const books = await load("books");
   $("#books").innerHTML = books.map(bookCard).join("");
 
-  $("#teachers").innerHTML = data.teachers.filter(t => t.id !== "me").slice(0, 4)
+  $("#teachers").innerHTML = data.teachers.filter(t => !t.pending).slice(0, 4)
     .map(t => teacherCard(t, data, countBy("teacher", t.id))).join("");
 
   $("#testimonials").innerHTML = testimonials.map(t => `

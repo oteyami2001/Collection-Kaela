@@ -61,22 +61,34 @@
 
     <!-- Teacher -->
     <div class="container dash dash--prof" id="teacher" hidden>
-      <p class="alert alert--ok dash__full" id="welcomeTeacher" hidden>Votre compte professeur est créé. Publiez votre premier cours ci-dessous.</p>
-      <section class="panel">
+      <p class="alert alert--ok dash__full" id="welcomeTeacher" hidden>Bienvenue ! Votre compte professeur est actif.</p>
+      <div class="alert dash__full" id="pendingTeacher" hidden>
+        <strong>Compte en cours de vérification.</strong> L'équipe Collection Kaela vérifie votre profil de professeur.
+        Vous pourrez publier vos cours dès sa validation. Pour toute question : <a href="mailto:editionkaela@gmail.com">editionkaela@gmail.com</a>.
+      </div>
+      <div class="alert dash__full" id="rejectedTeacher" hidden>
+        Votre profil de professeur n'a pas été validé. Contactez-nous à <a href="mailto:editionkaela@gmail.com">editionkaela@gmail.com</a> pour en savoir plus.
+      </div>
+      <section class="panel" id="publishPanel">
         <h2>Publier un cours</h2>
         <form class="form-grid" id="publish" novalidate>
-          <div class="field"><label for="cTitle">Titre du cours</label><input id="cTitle" name="title" required maxlength="90" placeholder="Ex. : Les fonctions exponentielles"></div>
+          <div class="field"><label for="cTitle">Titre du cours</label><input id="cTitle" name="title" required minlength="3" maxlength="120" placeholder="Ex. : Les fonctions exponentielles"></div>
           <div class="form-grid form-grid--2">
             <div class="field"><label for="cLevel">Niveau</label><select id="cLevel" name="level" required></select></div>
             <div class="field"><label for="cSeries">Séries <small>(BAC, facultatif)</small></label><input id="cSeries" name="series" placeholder="C, D"></div>
           </div>
-          <div class="field"><label for="cSummary">Description</label><textarea id="cSummary" name="summary" maxlength="300" required placeholder="Ce que l'élève saura faire après le cours."></textarea></div>
+          <div class="field"><label for="cSummary">Description</label><textarea id="cSummary" name="summary" maxlength="600" required placeholder="Ce que l'élève saura faire après le cours."></textarea></div>
           <fieldset class="form-grid">
             <legend>Vidéos du cours</legend>
             <div class="form-grid" id="lessons"></div>
             <button type="button" class="btn btn--secondary btn--sm" id="addLesson">+ Ajouter une vidéo</button>
-            <small class="muted">Collez le lien YouTube de chaque vidéo (vous pouvez la mettre en « non répertoriée »).</small>
+            <small class="muted" id="videoHelp">Pour chaque vidéo, envoyez le fichier depuis votre téléphone ou ordinateur, ou collez un lien YouTube (vous pouvez la mettre en « non répertoriée »).</small>
           </fieldset>
+          <label class="check-row"><input type="checkbox" name="published" checked> Publier tout de suite (sinon le cours reste en brouillon, visible par vous seul)</label>
+          <div id="uploadBox" hidden>
+            <p class="muted" id="uploadLabel" style="margin:0 0 6px">Envoi des vidéos…</p>
+            <div class="progress" style="margin:0"><span id="uploadBar" style="width:0"></span></div>
+          </div>
           <p class="alert" id="pubError" role="alert" hidden></p>
           <button class="btn btn--primary" type="submit">Publier le cours</button>
         </form>
@@ -88,16 +100,18 @@
           <p class="muted" id="pBio" style="margin-top:12px"></p>
         </section>
         <section class="panel">
-          <h2>Mes cours publiés</h2>
+          <h2>Mes cours</h2>
           <ul class="mine" id="myCourses"></ul>
         </section>
       </div>
-      <p class="alert dash__full">Mode démonstration : vos cours sont enregistrés uniquement dans ce navigateur. La mise en ligne pour tous les élèves nécessite de connecter le site à un serveur (voir README).</p>
+      <p class="alert dash__full" id="demoTeacher" hidden>Mode démonstration : vos cours sont enregistrés uniquement dans ce navigateur. Pour les rendre visibles par tous les élèves, connectez la base de données (voir le README).</p>
     </div>
   </main>
 
   <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/espace.js"></script>
 </body>
 </html>

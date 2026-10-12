@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mot de passe — Préparation d'Examen Collection Kaela</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a6cbd">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <div class="auth">
+      <div class="auth__grid" style="grid-template-columns:minmax(0,520px);justify-content:center">
+        <form class="auth__card" id="requestForm" novalidate>
+          <h1>Mot de passe oublié</h1>
+          <p class="muted" style="margin:0">Saisissez l'e-mail de votre compte : nous vous enverrons un lien pour choisir un nouveau mot de passe.</p>
+          <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <p class="alert" id="error" role="alert" hidden></p>
+          <button class="btn btn--primary btn--block" type="submit">Envoyer le lien</button>
+          <p class="muted" style="margin:0"><a href="connexion.html">← Retour à la connexion</a></p>
+        </form>
+        <form class="auth__card" id="resetForm" novalidate hidden>
+          <h1>Nouveau mot de passe</h1>
+          <div class="field"><label for="password">Nouveau mot de passe</label><input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required><small>8 caractères minimum.</small></div>
+          <div class="field"><label for="password2">Confirmez le mot de passe</label><input id="password2" name="password2" type="password" minlength="8" autocomplete="new-password" required></div>
+          <p class="alert" id="error2" role="alert" hidden></p>
+          <button class="btn btn--primary btn--block" type="submit">Enregistrer</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/motdepasse.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration — Préparation d'Examen Collection Kaela</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a6cbd">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li aria-current="page">Administration</li></ol>
+        <h1>Administration</h1>
+        <p>Validez les professeurs et gérez les cours publiés.</p>
+      </div>
+    </section>
+    <div class="container dash">
+      <p class="alert" id="adminMsg" role="alert" hidden></p>
+      <section class="panel" id="teachersPanel" hidden>
+        <div class="section__row" style="margin-bottom:12px"><h2 style="margin:0">Professeurs</h2>
+          <div class="filters" role="group" aria-label="Filtrer les professeurs" style="margin:0">
+            <button class="chip chip--filter" type="button" data-status="pending" aria-pressed="true">En attente</button>
+            <button class="chip chip--filter" type="button" data-status="approved" aria-pressed="false">Validés</button>
+            <button class="chip chip--filter" type="button" data-status="rejected" aria-pressed="false">Refusés</button>
+          </div></div>
+        <ul class="mine" id="teacherList"></ul>
+      </section>
+      <section class="panel" id="coursesPanel" hidden>
+        <h2>Cours</h2>
+        <ul class="mine" id="courseList"></ul>
+      </section>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

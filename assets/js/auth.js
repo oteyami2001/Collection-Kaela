@@ -1,10 +1,15 @@
-// Sign-up and login — DEMO ONLY: the profile is kept in this browser (localStorage)
-// and the password is never stored. Connect a real backend (auth + database) before launch.
+// Sign-up and login through the data layer (api.js): Supabase when configured, demo mode otherwise.
 
-const showError = msg => { const el = $("#error"); el.textContent = msg; el.hidden = !msg; if (msg) el.focus?.(); };
+const showError = msg => { const el = $("#error"); el.textContent = msg; el.hidden = !msg; };
+const busy = (form, on, label) => {
+  const btn = $('button[type="submit"]', form);
+  btn.disabled = on;
+  if (label) btn.textContent = label;
+};
 
 (async () => {
   const data = await boot();
+  if (api.mode === "demo") $("#demoNote")?.removeAttribute("hidden");
 
   // ----- Sign-up -----
   const signup = $("#signup");
@@ -22,8 +27,9 @@ const showError = msg => { const el = $("#error"); el.textContent = msg; el.hidd
       if (e.target.id === "level") $("#seriesField").hidden = e.target.value !== "bac";
     });
 
-    signup.addEventListener("submit", e => {
+    signup.addEventListener("submit", async e => {
       e.preventDefault();
+      showError("");
       const f = new FormData(signup), role = f.get("role");
       const invalid = [...signup.elements].find(el => el.willValidate && !el.closest("[hidden]") && !el.checkValidity());
       if (invalid) {
@@ -34,33 +40,49 @@ const showError = msg => { const el = $("#error"); el.textContent = msg; el.hidd
       }
       if (role === "prof" && !f.getAll("levels").length) { showError("Indiquez au moins un niveau enseigné."); return; }
 
-      const user = {
+      const profile = {
         role, firstName: f.get("firstName").trim(), lastName: f.get("lastName").trim(),
         email: f.get("email").trim().toLowerCase(), phone: f.get("phone").trim(), school: f.get("school").trim(),
         ...(role === "eleve"
           ? { level: f.get("level"), series: f.get("level") === "bac" ? f.get("series") : "" }
           : { subject: f.get("subject"), levels: f.getAll("levels"), years: Number(f.get("years")) || 0, bio: f.get("bio").trim() })
       };
-      store.set("ck-account", user);
-      setUser(user);
-      location.href = "espace.html?bienvenue=1";
+      busy(signup, true, "Création du compte…");
+      try {
+        const { needsConfirmation } = await api.signUp(profile, f.get("password"));
+        if (needsConfirmation) {
+          signup.innerHTML = `<h1>Vérifiez votre e-mail</h1>
+            <p class="alert alert--ok">Un lien de confirmation a été envoyé à <strong>${esc(profile.email)}</strong>.
+            Ouvrez-le pour activer votre compte, puis connectez-vous.</p>
+            ${role === "prof" ? `<p class="muted">Votre compte professeur sera ensuite vérifié par notre équipe avant que vous puissiez publier.</p>` : ""}
+            <a class="btn btn--primary btn--block" href="connexion.html">Aller à la connexion</a>`;
+          return;
+        }
+        location.href = "espace.html?bienvenue=1";
+      } catch (err) {
+        showError(err.message);
+        busy(signup, false, "Créer mon compte");
+      }
     });
   }
 
   // ----- Login -----
   const login = $("#login");
   if (login) {
-    login.addEventListener("submit", e => {
+    if (data.user) { location.replace("espace.html"); return; }
+    login.addEventListener("submit", async e => {
       e.preventDefault();
-      const email = $("#email").value.trim().toLowerCase();
-      if (!email || !$("#password").value) { showError("Saisissez votre e-mail et votre mot de passe."); return; }
-      const account = store.get("ck-account", null);
-      if (!account || account.email !== email) {
-        showError("Aucun compte trouvé avec cet e-mail sur cet appareil. Créez un compte pour commencer.");
-        return;
+      showError("");
+      const email = $("#email").value.trim().toLowerCase(), password = $("#password").value;
+      if (!email || !password) { showError("Saisissez votre e-mail et votre mot de passe."); return; }
+      busy(login, true, "Connexion…");
+      try {
+        await api.signIn(email, password);
+        location.href = "espace.html";
+      } catch (err) {
+        showError(err.message);
+        busy(login, false, "Se connecter");
       }
-      setUser(account);
-      location.href = "espace.html";
     });
   }
 })();

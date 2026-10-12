@@ -86,6 +86,8 @@
 
         <label class="check-row"><input type="checkbox" name="cgu" required> J'accepte les conditions d'utilisation et la politique de confidentialité.</label>
 
+        <p class="muted" id="profNote" data-role="prof" hidden style="font-size:.9rem;margin:0">Les comptes professeurs sont vérifiés par l'équipe Collection Kaela avant de pouvoir publier des cours.</p>
+        <p class="alert" id="demoNote" hidden>Mode démonstration : votre compte est enregistré uniquement sur cet appareil.</p>
         <p class="alert" id="error" role="alert" hidden></p>
         <button class="btn btn--primary btn--block" type="submit">Créer mon compte</button>
         <p class="muted" style="margin:0">Déjà inscrit ? <a href="connexion.html">Se connecter</a></p>
@@ -94,7 +96,9 @@
   </main>
 
   <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/auth.js"></script>
 </body>
 </html>

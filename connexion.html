@@ -27,6 +27,7 @@
         <h1>Se connecter</h1>
         <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
         <div class="field"><label for="password">Mot de passe</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+        <p style="margin:-8px 0 0;text-align:right;font-size:.9rem"><a href="motdepasse.html">Mot de passe oublié ?</a></p>
         <p class="alert" id="error" role="alert" hidden></p>
         <button class="btn btn--primary btn--block" type="submit">Se connecter</button>
         <p class="muted" style="margin:0">Pas encore de compte ? <a href="inscription.html">Créer un compte</a></p>
@@ -35,7 +36,9 @@
   </main>
 
   <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
   <script src="assets/js/auth.js"></script>
 </body>
 </html>
