@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon espace — Collection Kaela</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li aria-current="page">Mon espace</li></ol>
+        <h1 id="hello">Mon espace</h1>
+        <p id="subtitle"></p>
+      </div>
+    </section>
+
+    <!-- Not signed in -->
+    <div class="container dash" id="guest" hidden>
+      <div class="panel center" style="margin-top:0">
+        <h2>Connectez-vous pour accéder à votre espace</h2>
+        <p class="muted">Votre espace regroupe vos cours, votre progression et, pour les professeurs, vos publications.</p>
+        <div class="cta__actions"><a class="btn btn--primary" href="connexion.html">Se connecter</a><a class="btn btn--secondary" href="inscription.html">Créer un compte</a></div>
+      </div>
+    </div>
+
+    <!-- Student -->
+    <div class="container dash" id="student" hidden>
+      <p class="alert alert--ok" id="welcomeStudent" hidden>Votre compte élève est créé. Bonnes révisions !</p>
+      <div class="stat-row">
+        <div class="stat"><strong id="stLevel"></strong><span>Mon niveau</span></div>
+        <div class="stat"><strong id="stCourses">0</strong><span>Cours commencés</span></div>
+        <div class="stat"><strong id="stVideos">0</strong><span>Vidéos vues</span></div>
+      </div>
+      <section class="panel" id="continueBox" hidden>
+        <h2>Continuer mes révisions</h2>
+        <ul class="mine" id="continueList"></ul>
+      </section>
+      <section>
+        <div class="section__row" style="margin-bottom:20px">
+          <h2 style="margin:0">Cours pour mon niveau</h2>
+          <a class="link-arrow" id="allMyLevel" href="catalogue.html">Voir tout →</a>
+        </div>
+        <div class="cards" id="myLevelCourses"></div>
+      </section>
+      <section class="panel">
+        <h2>Bientôt dans votre espace</h2>
+        <div class="soon"><span>Exercices corrigés</span><span>Devoirs</span><span>Quiz</span><span>Examens blancs</span><span>Statistiques de performance</span><span>Questions-réponses</span></div>
+      </section>
+    </div>
+
+    <!-- Teacher -->
+    <div class="container dash dash--prof" id="teacher" hidden>
+      <p class="alert alert--ok dash__full" id="welcomeTeacher" hidden>Votre compte professeur est créé. Publiez votre premier cours ci-dessous.</p>
+      <section class="panel">
+        <h2>Publier un cours</h2>
+        <form class="form-grid" id="publish" novalidate>
+          <div class="field"><label for="cTitle">Titre du cours</label><input id="cTitle" name="title" required maxlength="90" placeholder="Ex. : Les fonctions exponentielles"></div>
+          <div class="form-grid form-grid--2">
+            <div class="field"><label for="cLevel">Niveau</label><select id="cLevel" name="level" required></select></div>
+            <div class="field"><label for="cSeries">Séries <small>(BAC, facultatif)</small></label><input id="cSeries" name="series" placeholder="C, D"></div>
+          </div>
+          <div class="field"><label for="cSummary">Description</label><textarea id="cSummary" name="summary" maxlength="300" required placeholder="Ce que l'élève saura faire après le cours."></textarea></div>
+          <fieldset class="form-grid">
+            <legend>Vidéos du cours</legend>
+            <div class="form-grid" id="lessons"></div>
+            <button type="button" class="btn btn--secondary btn--sm" id="addLesson">+ Ajouter une vidéo</button>
+            <small class="muted">Collez le lien YouTube de chaque vidéo (vous pouvez la mettre en « non répertoriée »).</small>
+          </fieldset>
+          <p class="alert" id="pubError" role="alert" hidden></p>
+          <button class="btn btn--primary" type="submit">Publier le cours</button>
+        </form>
+      </section>
+      <div class="form-grid" style="align-content:start;gap:24px">
+        <section class="panel">
+          <h2>Mon profil</h2>
+          <div class="tcard__who"><span class="avatar" id="pAvatar" aria-hidden="true"></span><div><strong id="pName"></strong><p class="tcard__job" id="pSubject"></p></div></div>
+          <p class="muted" id="pBio" style="margin-top:12px"></p>
+        </section>
+        <section class="panel">
+          <h2>Mes cours publiés</h2>
+          <ul class="mine" id="myCourses"></ul>
+        </section>
+      </div>
+      <p class="alert dash__full">Mode démonstration : vos cours sont enregistrés uniquement dans ce navigateur. La mise en ligne pour tous les élèves nécessite de connecter le site à un serveur (voir README).</p>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/espace.js"></script>
+</body>
+</html>

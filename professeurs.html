@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nos professeurs — Collection Kaela</title>
+  <meta name="description" content="Les professeurs qui publient leurs cours en vidéo sur Collection Kaela, matière par matière.">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li aria-current="page">Professeurs</li></ol>
+        <h1>Nos professeurs</h1>
+        <p>Choisissez le professeur dont la pédagogie vous convient. <em>Profils d'exemple.</em></p>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:32px">
+      <div class="container">
+        <div class="filters" role="group" aria-label="Filtrer par matière" id="subjectFilters"></div>
+        <div class="teachers" id="teachers"></div>
+      </div>
+    </section>
+
+    <section class="section section--alt">
+      <div class="container b2b">
+        <div>
+          <span class="eyebrow">Rejoignez-nous</span>
+          <h2>Vous êtes professeur ?</h2>
+          <p>Créez votre profil dans votre matière et publiez vos cours en vidéo pour les élèves du BEPC et du BAC.</p>
+          <a href="inscription.html?role=prof" class="btn btn--primary">Créer mon compte professeur</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script>
+    (async () => {
+      const data = await boot();
+      const count = id => data.courses.filter(c => c.teacher === id).length;
+      const initial = new URLSearchParams(location.search).get("matiere") || "all";
+      $("#subjectFilters").innerHTML = [{ id: "all", label: "Toutes les matières" }, ...data.subjects].map(s =>
+        `<button class="chip chip--filter" type="button" data-filter="${esc(s.id)}" aria-pressed="${s.id === initial}">${esc(s.label)}</button>`).join("");
+      const render = f => {
+        const list = data.teachers.filter(t => f === "all" || t.subject === f);
+        $("#teachers").innerHTML = list.length
+          ? list.map(t => teacherCard(t, data, count(t.id))).join("")
+          : `<p class="empty">Aucun professeur pour cette matière pour l'instant.</p>`;
+      };
+      $("#subjectFilters").addEventListener("click", e => {
+        const b = e.target.closest("[data-filter]");
+        if (!b) return;
+        $$("[data-filter]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+        render(b.dataset.filter);
+      });
+      render(initial);
+    })();
+  </script>
+</body>
+</html>

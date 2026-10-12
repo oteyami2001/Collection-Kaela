@@ -1,0 +1,261 @@
+[
+  {
+    "slug": "bepc-maths-calcul-litteral",
+    "title": "Calcul littéral et identités remarquables",
+    "subject": "maths", "level": "bepc", "teacher": "adjoua-k", "featured": true,
+    "summary": "Développer, factoriser et résoudre : les automatismes indispensables pour l'épreuve de mathématiques du BEPC.",
+    "lessons": [
+      { "t": "Développer une expression", "d": 12 },
+      { "t": "Les trois identités remarquables", "d": 15 },
+      { "t": "Factoriser avec un facteur commun", "d": 10 },
+      { "t": "Équations produit nul", "d": 14 },
+      { "t": "Sujet type BEPC corrigé en vidéo", "d": 20 }
+    ]
+  },
+  {
+    "slug": "bepc-maths-thales-pythagore",
+    "title": "Théorème de Thalès et de Pythagore",
+    "subject": "maths", "level": "bepc", "teacher": "adjoua-k", "featured": false,
+    "summary": "Calculer des longueurs, démontrer un parallélisme ou un angle droit avec la bonne rédaction.",
+    "lessons": [
+      { "t": "Pythagore et sa réciproque", "d": 13 },
+      { "t": "Thalès dans le triangle", "d": 14 },
+      { "t": "Réciproque de Thalès", "d": 11 },
+      { "t": "Exercices d'examen", "d": 18 }
+    ]
+  },
+  {
+    "slug": "bac-maths-limites-continuite",
+    "title": "Limites et continuité",
+    "subject": "maths", "level": "bac", "series": ["C", "D"], "teacher": "adjoua-k", "featured": true,
+    "summary": "Lever les formes indéterminées, étudier la continuité et appliquer le théorème des valeurs intermédiaires.",
+    "lessons": [
+      { "t": "Limites usuelles et opérations", "d": 16 },
+      { "t": "Formes indéterminées", "d": 18 },
+      { "t": "Asymptotes", "d": 14 },
+      { "t": "Continuité et TVI", "d": 17 },
+      { "t": "Exercice type BAC", "d": 22 }
+    ]
+  },
+  {
+    "slug": "bac-maths-nombres-complexes",
+    "title": "Nombres complexes",
+    "subject": "maths", "level": "bac", "series": ["C", "D"], "teacher": "adjoua-k", "featured": false,
+    "summary": "Forme algébrique, trigonométrique et exponentielle, équations du second degré et géométrie.",
+    "lessons": [
+      { "t": "Forme algébrique et conjugué", "d": 14 },
+      { "t": "Module et argument", "d": 15 },
+      { "t": "Forme exponentielle", "d": 13 },
+      { "t": "Équations dans ℂ", "d": 16 },
+      { "t": "Complexes et géométrie", "d": 19 }
+    ]
+  },
+  {
+    "slug": "bac-maths-probabilites",
+    "title": "Probabilités et dénombrement",
+    "subject": "maths", "level": "bac", "series": ["A1", "C", "D"], "teacher": "adjoua-k", "featured": false,
+    "summary": "Arrangements, combinaisons, probabilités conditionnelles et loi binomiale.",
+    "lessons": [
+      { "t": "Dénombrement", "d": 15 },
+      { "t": "Probabilités conditionnelles", "d": 14 },
+      { "t": "Variable aléatoire", "d": 16 },
+      { "t": "Loi binomiale", "d": 13 }
+    ]
+  },
+  {
+    "slug": "bepc-physique-electricite",
+    "title": "Électricité : loi d'Ohm et puissance",
+    "subject": "physique", "level": "bepc", "teacher": "yao-b", "featured": true,
+    "summary": "Comprendre la tension, l'intensité, la résistance et calculer une puissance ou une énergie électrique.",
+    "lessons": [
+      { "t": "Tension et intensité", "d": 11 },
+      { "t": "La loi d'Ohm", "d": 12 },
+      { "t": "Puissance et énergie électrique", "d": 13 },
+      { "t": "Exercices corrigés", "d": 16 }
+    ]
+  },
+  {
+    "slug": "bac-physique-mecanique",
+    "title": "Mouvement dans un champ uniforme",
+    "subject": "physique", "level": "bac", "series": ["C", "D"], "teacher": "yao-b", "featured": true,
+    "summary": "Appliquer le théorème du centre d'inertie au projectile et à la particule chargée.",
+    "lessons": [
+      { "t": "Rappels de cinématique", "d": 14 },
+      { "t": "Théorème du centre d'inertie", "d": 15 },
+      { "t": "Mouvement d'un projectile", "d": 18 },
+      { "t": "Particule dans un champ électrique", "d": 17 }
+    ]
+  },
+  {
+    "slug": "bac-physique-oscillations",
+    "title": "Oscillations électriques (circuit LC)",
+    "subject": "physique", "level": "bac", "series": ["C", "D"], "teacher": "yao-b", "featured": false,
+    "summary": "Équation différentielle, période propre et énergie d'un circuit oscillant.",
+    "lessons": [
+      { "t": "Charge et décharge d'un condensateur", "d": 14 },
+      { "t": "Le circuit LC", "d": 16 },
+      { "t": "Énergie et amortissement", "d": 13 }
+    ]
+  },
+  {
+    "slug": "bepc-chimie-solutions",
+    "title": "Solutions acides, basiques et neutres",
+    "subject": "chimie", "level": "bepc", "teacher": "aya-t", "featured": false,
+    "summary": "Le pH, les indicateurs colorés et la réaction entre un acide et une base.",
+    "lessons": [
+      { "t": "Notion de pH", "d": 10 },
+      { "t": "Indicateurs colorés", "d": 9 },
+      { "t": "Réaction acide–base", "d": 12 }
+    ]
+  },
+  {
+    "slug": "bac-chimie-acides-bases",
+    "title": "Acides et bases faibles, dosages",
+    "subject": "chimie", "level": "bac", "series": ["C", "D"], "teacher": "aya-t", "featured": true,
+    "summary": "Couples acide/base, pKa, solutions tampons et exploitation d'une courbe de dosage.",
+    "lessons": [
+      { "t": "Acides forts et faibles", "d": 15 },
+      { "t": "Couple acide/base et pKa", "d": 14 },
+      { "t": "Dosage et point d'équivalence", "d": 18 },
+      { "t": "Solutions tampons", "d": 12 }
+    ]
+  },
+  {
+    "slug": "bac-chimie-organique",
+    "title": "Chimie organique : alcools et esters",
+    "subject": "chimie", "level": "bac", "series": ["C", "D"], "teacher": "aya-t", "featured": false,
+    "summary": "Nomenclature, oxydation des alcools, estérification et hydrolyse.",
+    "lessons": [
+      { "t": "Nomenclature des composés", "d": 13 },
+      { "t": "Oxydation des alcools", "d": 14 },
+      { "t": "Estérification et hydrolyse", "d": 15 }
+    ]
+  },
+  {
+    "slug": "bepc-svt-reproduction",
+    "title": "La reproduction humaine",
+    "subject": "svt", "level": "bepc", "teacher": "konan-d", "featured": true,
+    "summary": "Appareils reproducteurs, cycle menstruel, fécondation et grossesse expliqués avec des schémas.",
+    "lessons": [
+      { "t": "Les appareils reproducteurs", "d": 12 },
+      { "t": "Le cycle menstruel", "d": 11 },
+      { "t": "Fécondation et nidation", "d": 10 },
+      { "t": "Schémas à savoir refaire", "d": 9 }
+    ]
+  },
+  {
+    "slug": "bac-svt-genetique",
+    "title": "Génétique : transmission des caractères",
+    "subject": "svt", "level": "bac", "series": ["D"], "teacher": "konan-d", "featured": false,
+    "summary": "Monohybridisme, dihybridisme, hérédité liée au sexe et échiquier de croisement.",
+    "lessons": [
+      { "t": "Vocabulaire de la génétique", "d": 12 },
+      { "t": "Monohybridisme", "d": 16 },
+      { "t": "Dihybridisme", "d": 18 },
+      { "t": "Hérédité liée au sexe", "d": 15 }
+    ]
+  },
+  {
+    "slug": "bac-svt-immunologie",
+    "title": "Immunologie",
+    "subject": "svt", "level": "bac", "series": ["D"], "teacher": "konan-d", "featured": false,
+    "summary": "Le soi et le non-soi, la réponse immunitaire et les dysfonctionnements du système immunitaire.",
+    "lessons": [
+      { "t": "Soi et non-soi", "d": 11 },
+      { "t": "Réponse immunitaire non spécifique", "d": 13 },
+      { "t": "Réponse immunitaire spécifique", "d": 16 }
+    ]
+  },
+  {
+    "slug": "bepc-info-bureautique",
+    "title": "Initiation : traitement de texte et tableur",
+    "subject": "informatique", "level": "bepc", "teacher": "ibrahim-s", "featured": false,
+    "summary": "Mettre en forme un document et réaliser ses premiers calculs dans un tableur.",
+    "lessons": [
+      { "t": "Découvrir l'ordinateur", "d": 8 },
+      { "t": "Mettre en forme un texte", "d": 12 },
+      { "t": "Formules dans un tableur", "d": 14 }
+    ]
+  },
+  {
+    "slug": "bac-info-algorithmique",
+    "title": "Algorithmique et premiers programmes",
+    "subject": "informatique", "level": "bac", "teacher": "ibrahim-s", "featured": true,
+    "summary": "Variables, conditions, boucles et fonctions, avec des exemples en pseudo-code et en Python.",
+    "lessons": [
+      { "t": "Variables et types", "d": 12 },
+      { "t": "Structures conditionnelles", "d": 13 },
+      { "t": "Boucles", "d": 15 },
+      { "t": "Fonctions", "d": 14 }
+    ]
+  },
+  {
+    "slug": "bepc-anglais-reading",
+    "title": "Reading comprehension & grammar",
+    "subject": "anglais", "level": "bepc", "teacher": "grace-n", "featured": false,
+    "summary": "Comprendre un texte, répondre aux questions et réviser les temps essentiels du BEPC.",
+    "lessons": [
+      { "t": "How to read a text", "d": 10 },
+      { "t": "Present, past and future tenses", "d": 14 },
+      { "t": "BEPC past paper", "d": 18 }
+    ]
+  },
+  {
+    "slug": "bac-anglais-essay",
+    "title": "Essay writing for the BAC",
+    "subject": "anglais", "level": "bac", "teacher": "grace-n", "featured": false,
+    "summary": "Plan, connecteurs logiques et vocabulaire pour réussir l'expression écrite.",
+    "lessons": [
+      { "t": "Understanding the topic", "d": 11 },
+      { "t": "Building your outline", "d": 12 },
+      { "t": "Linking words", "d": 10 },
+      { "t": "Model essay", "d": 16 }
+    ]
+  },
+  {
+    "slug": "bepc-francais-redaction",
+    "title": "Réussir la rédaction au BEPC",
+    "subject": "francais", "level": "bepc", "teacher": "serge-a", "featured": true,
+    "summary": "Analyser le sujet, construire un plan et soigner l'expression pour la production écrite.",
+    "lessons": [
+      { "t": "Comprendre le sujet", "d": 10 },
+      { "t": "Construire son plan", "d": 12 },
+      { "t": "Introduction et conclusion", "d": 11 },
+      { "t": "Rédaction corrigée", "d": 17 }
+    ]
+  },
+  {
+    "slug": "bac-francais-commentaire",
+    "title": "Le commentaire de texte",
+    "subject": "francais", "level": "bac", "series": ["A1", "A2", "C", "D"], "teacher": "serge-a", "featured": false,
+    "summary": "La méthode complète : lecture, axes de lecture, rédaction et relecture.",
+    "lessons": [
+      { "t": "Lire et annoter le texte", "d": 13 },
+      { "t": "Dégager les axes", "d": 14 },
+      { "t": "Rédiger le développement", "d": 16 },
+      { "t": "Commentaire corrigé", "d": 20 }
+    ]
+  },
+  {
+    "slug": "bepc-espagnol-comprehension",
+    "title": "Compréhension de texte en espagnol",
+    "subject": "espagnol", "level": "bepc", "teacher": "mariam-c", "featured": false,
+    "summary": "Vocabulaire de base, conjugaison au présent et méthode pour répondre aux questions.",
+    "lessons": [
+      { "t": "Vocabulario esencial", "d": 9 },
+      { "t": "El presente de indicativo", "d": 12 },
+      { "t": "Responder a las preguntas", "d": 11 }
+    ]
+  },
+  {
+    "slug": "bac-espagnol-expression",
+    "title": "Expresión escrita para el BAC",
+    "subject": "espagnol", "level": "bac", "series": ["A1", "A2"], "teacher": "mariam-c", "featured": false,
+    "summary": "Organiser ses idées et rédiger un texte argumenté en espagnol.",
+    "lessons": [
+      { "t": "Analizar el tema", "d": 10 },
+      { "t": "Conectores y estructura", "d": 12 },
+      { "t": "Redacción modelo", "d": 15 }
+    ]
+  }
+]

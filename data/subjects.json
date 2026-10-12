@@ -1,0 +1,10 @@
+[
+  { "id": "maths", "label": "Mathématiques", "icon": "∑", "color": "#0b7a4b" },
+  { "id": "physique", "label": "Sciences Physiques", "icon": "⚡", "color": "#1d4ed8" },
+  { "id": "chimie", "label": "Chimie", "icon": "⚗", "color": "#7c3aed" },
+  { "id": "svt", "label": "Sciences Naturelles", "icon": "🌿", "color": "#15803d" },
+  { "id": "informatique", "label": "Informatique", "icon": "</>", "color": "#0f766e" },
+  { "id": "anglais", "label": "Anglais", "icon": "EN", "color": "#b91c1c" },
+  { "id": "francais", "label": "Français", "icon": "FR", "color": "#1e3a8a" },
+  { "id": "espagnol", "label": "Espagnol", "icon": "ES", "color": "#c2410c" }
+]

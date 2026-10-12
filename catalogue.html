@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tous les cours — Collection Kaela</title>
+  <meta name="description" content="Catalogue des cours en vidéo pour préparer le BEPC et le BAC : mathématiques, sciences, langues et informatique.">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li aria-current="page">Cours</li></ol>
+        <h1 id="title">Tous les cours</h1>
+        <p id="count" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <div class="container catalog">
+      <details class="filters-panel" id="filtersPanel" open>
+        <summary>Filtres</summary>
+        <form class="filters-panel__body" id="filters">
+          <fieldset>
+            <legend>Niveau</legend>
+            <label class="opt"><input type="radio" name="niveau" value="" checked> Tous les niveaux</label>
+            <label class="opt"><input type="radio" name="niveau" value="bepc"> BEPC (3e)</label>
+            <label class="opt"><input type="radio" name="niveau" value="bac"> BAC (Terminale)</label>
+          </fieldset>
+          <fieldset>
+            <legend>Matières</legend>
+            <div id="subjectOpts"></div>
+          </fieldset>
+          <div class="field">
+            <label for="prof">Professeur</label>
+            <select id="prof" name="prof"><option value="">Tous les professeurs</option></select>
+          </div>
+          <button type="reset" class="btn btn--secondary btn--sm">Réinitialiser</button>
+        </form>
+      </details>
+
+      <div>
+        <div class="toolbar">
+          <form class="search" role="search" id="searchForm">
+            <label class="sr-only" for="q">Rechercher un cours</label>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="q" name="q" type="search" placeholder="Rechercher une leçon, un chapitre…">
+          </form>
+          <label class="sr-only" for="sort">Trier par</label>
+          <select class="select" id="sort">
+            <option value="pertinence">Pertinence</option>
+            <option value="titre">Titre (A → Z)</option>
+            <option value="duree">Durée la plus courte</option>
+            <option value="videos">Nombre de vidéos</option>
+          </select>
+        </div>
+        <div class="cards" id="results"></div>
+        <div class="empty" id="empty" hidden>
+          <h2>Aucun cours trouvé</h2>
+          <p class="muted">Essayez une autre recherche ou retirez des filtres.</p>
+          <button class="btn btn--primary" type="button" id="resetAll">Voir tous les cours</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/catalogue.js"></script>
+</body>
+</html>

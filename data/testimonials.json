@@ -1,0 +1,6 @@
+[
+  { "name": "Awa (exemple)", "level": "BEPC", "subject": "Mathématiques", "quote": "Je pouvais revoir la vidéo sur Thalès autant de fois que nécessaire, jusqu'à comprendre.", "rating": 5 },
+  { "name": "Moussa (exemple)", "level": "BAC D", "subject": "Sciences Naturelles", "quote": "Les schémas de génétique expliqués étape par étape m'ont beaucoup aidé pour les révisions.", "rating": 5 },
+  { "name": "Esther (exemple)", "level": "BAC A2", "subject": "Français", "quote": "J'ai enfin compris comment construire un commentaire de texte.", "rating": 5 },
+  { "name": "Kévin (exemple)", "level": "BEPC", "subject": "Sciences Physiques", "quote": "Je révise le soir sur mon téléphone, à mon rythme.", "rating": 4 }
+]

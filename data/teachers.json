@@ -1,0 +1,10 @@
+[
+  { "id": "adjoua-k", "name": "Mme Adjoua K.", "subject": "maths", "levels": ["bepc", "bac"], "years": 12, "bio": "Professeure de mathématiques en lycée. Méthodes claires, beaucoup d'exercices types d'examen." },
+  { "id": "yao-b", "name": "M. Yao B.", "subject": "physique", "levels": ["bepc", "bac"], "years": 9, "bio": "Passionné d'expériences simples pour comprendre l'électricité, l'optique et la mécanique." },
+  { "id": "aya-t", "name": "Mme Aya T.", "subject": "chimie", "levels": ["bepc", "bac"], "years": 8, "bio": "Spécialiste des solutions et de la chimie organique, avec des fiches de synthèse pour chaque leçon." },
+  { "id": "konan-d", "name": "M. Konan D.", "subject": "svt", "levels": ["bepc", "bac"], "years": 15, "bio": "Schémas, mots-clés et sujets corrigés pour maîtriser la biologie et la géologie." },
+  { "id": "ibrahim-s", "name": "M. Ibrahim S.", "subject": "informatique", "levels": ["bepc", "bac"], "years": 6, "bio": "Algorithmique et bureautique expliquées pas à pas, avec des exemples concrets." },
+  { "id": "grace-n", "name": "Mme Grace N.", "subject": "anglais", "levels": ["bepc", "bac"], "years": 10, "bio": "Reading, grammar and essay writing: une préparation ciblée sur les épreuves d'anglais." },
+  { "id": "serge-a", "name": "M. Serge A.", "subject": "francais", "levels": ["bepc", "bac"], "years": 14, "bio": "Rédaction, commentaire et dissertation : les méthodes pour gagner des points à l'examen." },
+  { "id": "mariam-c", "name": "Mme Mariam C.", "subject": "espagnol", "levels": ["bepc", "bac"], "years": 7, "bio": "Compréhension et expression écrite en espagnol, du vocabulaire essentiel au sujet type." }
+]

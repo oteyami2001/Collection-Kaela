@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cours — Collection Kaela</title>
+  <meta name="description" content="Cours en vidéo pour préparer le BEPC et le BAC.">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs" id="crumbs"><li><a href="index.html">Accueil</a></li><li><a href="catalogue.html">Cours</a></li></ol>
+        <div class="card__badges" id="badges"></div>
+        <h1 id="title" style="margin-top:12px">Chargement…</h1>
+        <p id="summary"></p>
+      </div>
+    </section>
+
+    <div class="container course" id="course">
+      <div>
+        <div class="player" id="player"></div>
+        <div class="lesson-head">
+          <h2 id="lessonTitle"></h2>
+          <button class="btn btn--secondary btn--sm" type="button" id="markDone" aria-pressed="false">Marquer comme vue</button>
+        </div>
+        <div class="lesson-nav">
+          <button class="btn btn--ghost" type="button" id="prev">← Vidéo précédente</button>
+          <button class="btn btn--primary" type="button" id="next">Vidéo suivante →</button>
+        </div>
+        <div class="quiz">
+          <h3>Quiz et exercices corrigés</h3>
+          <p>Bientôt : testez vos connaissances à la fin de chaque leçon.</p>
+        </div>
+        <div class="prof-box" id="profBox"></div>
+      </div>
+
+      <aside class="toc" aria-labelledby="tocTitle">
+        <h2 id="tocTitle"><span>Sommaire</span><small id="tocCount"></small></h2>
+        <p class="toc__meta" id="progressLabel"></p>
+        <div class="progress" aria-hidden="true"><span id="progressBar" style="width:0"></span></div>
+        <ol id="toc"></ol>
+      </aside>
+    </div>
+
+    <section class="section section--alt">
+      <div class="container">
+        <header class="section__head"><h2>Dans la même matière</h2></header>
+        <div class="cards" id="related"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/cours.js"></script>
+</body>
+</html>

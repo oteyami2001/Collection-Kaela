@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inscription — Collection Kaela</title>
+  <meta name="description" content="Créez votre compte élève (BEPC ou BAC) ou professeur sur Collection Kaela.">
+  <meta name="theme-color" content="#0b7a4b">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main" class="auth">
+    <div class="auth__grid">
+      <div class="auth__aside">
+        <span class="eyebrow">Bienvenue</span>
+        <h2>Rejoignez la communauté Collection Kaela</h2>
+        <ul class="checks">
+          <li><strong>Élèves :</strong> accédez aux cours de votre niveau, BEPC ou BAC.</li>
+          <li><strong>Professeurs :</strong> publiez vos cours en vidéo dans votre matière.</li>
+          <li>Révisez sur téléphone, tablette ou ordinateur.</li>
+        </ul>
+        <img src="img/hero.svg" alt="" width="560" height="480" style="margin-top:24px;border-radius:24px">
+      </div>
+
+      <form class="auth__card" id="signup" novalidate>
+        <h1>Créer un compte</h1>
+        <div class="roles" role="radiogroup" aria-label="Je suis">
+          <label><input type="radio" name="role" value="eleve" checked><span>Élève</span></label>
+          <label><input type="radio" name="role" value="prof"><span>Professeur</span></label>
+        </div>
+
+        <div class="form-grid form-grid--2">
+          <div class="field"><label for="firstName">Prénom</label><input id="firstName" name="firstName" autocomplete="given-name" required></div>
+          <div class="field"><label for="lastName">Nom</label><input id="lastName" name="lastName" autocomplete="family-name" required></div>
+        </div>
+        <div class="form-grid form-grid--2">
+          <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="phone">Téléphone <small>(facultatif)</small></label><input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="+225 07 00 00 00 00"></div>
+        </div>
+
+        <!-- Élève -->
+        <div class="form-grid form-grid--2" data-role="eleve">
+          <div class="field">
+            <label for="level">Mon niveau</label>
+            <select id="level" name="level" required>
+              <option value="">Choisir…</option>
+              <option value="bepc">BEPC — classe de 3e</option>
+              <option value="bac">BAC — Terminale</option>
+            </select>
+          </div>
+          <div class="field" id="seriesField" hidden>
+            <label for="series">Ma série</label>
+            <select id="series" name="series">
+              <option value="">Choisir…</option>
+              <option>A1</option><option>A2</option><option>B</option><option>C</option><option>D</option><option>E</option><option>G</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Professeur -->
+        <div class="form-grid" data-role="prof" hidden>
+          <div class="form-grid form-grid--2">
+            <div class="field">
+              <label for="subject">Matière enseignée</label>
+              <select id="subject" name="subject"><option value="">Choisir…</option></select>
+            </div>
+            <div class="field"><label for="years">Années d'expérience</label><input id="years" name="years" type="number" min="0" max="60" inputmode="numeric"></div>
+          </div>
+          <fieldset>
+            <legend class="label">Niveaux enseignés</legend>
+            <label class="opt"><input type="checkbox" name="levels" value="bepc"> BEPC (3e)</label>
+            <label class="opt"><input type="checkbox" name="levels" value="bac"> BAC (Terminale)</label>
+          </fieldset>
+          <div class="field"><label for="bio">Présentation courte</label><textarea id="bio" name="bio" maxlength="240" placeholder="Votre parcours, votre façon d'enseigner…"></textarea></div>
+        </div>
+
+        <div class="field"><label for="school">Établissement <small>(facultatif)</small></label><input id="school" name="school" autocomplete="organization"></div>
+        <div class="field"><label for="password">Mot de passe</label><input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required><small>8 caractères minimum.</small></div>
+
+        <label class="check-row"><input type="checkbox" name="cgu" required> J'accepte les conditions d'utilisation et la politique de confidentialité.</label>
+
+        <p class="alert" id="error" role="alert" hidden></p>
+        <button class="btn btn--primary btn--block" type="submit">Créer mon compte</button>
+        <p class="muted" style="margin:0">Déjà inscrit ? <a href="connexion.html">Se connecter</a></p>
+      </form>
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/common.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
