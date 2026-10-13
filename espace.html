@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261013b">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -96,18 +96,9 @@
       <div class="form-grid" style="align-content:start;gap:24px">
         <section class="panel">
           <h2>Mon profil</h2>
-          <div class="avatar-edit">
-            <span id="pAvatar"></span>
-            <div>
-              <strong id="pName"></strong>
-              <p class="tcard__job" id="pSubject"></p>
-              <input class="sr-only" id="avatarInput" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
-              <label class="btn btn--secondary btn--sm" for="avatarInput" id="avatarBtn">Choisir une photo</label>
-              <small>JPG, JPEG, PNG ou WebP · 5 Mo maximum</small>
-            </div>
-          </div>
-          <p class="alert" id="avatarMsg" role="status" hidden style="margin-top:12px"></p>
+          <div class="tcard__who"><span id="pAvatar"></span><div><strong id="pName"></strong><p class="tcard__job" id="pSubject"></p></div></div>
           <p class="muted" id="pBio" style="margin-top:12px"></p>
+          <div class="photo-field" id="photoField"></div>
         </section>
         <section class="panel">
           <h2>Mes cours</h2>
@@ -119,9 +110,9 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="assets/js/config.js"></script>
-  <script src="assets/js/common.js"></script>
-  <script src="assets/js/api.js"></script>
-  <script src="assets/js/espace.js"></script>
+  <script src="assets/js/config.js?v=20261013b"></script>
+  <script src="assets/js/common.js?v=20261013b"></script>
+  <script src="assets/js/api.js?v=20261013b"></script>
+  <script src="assets/js/espace.js?v=20261013b"></script>
 </body>
 </html>
