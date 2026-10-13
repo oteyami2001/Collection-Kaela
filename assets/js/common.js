@@ -68,16 +68,36 @@ function avatarHtml(name, color, url, extraClass = "") {
     src ? `<img src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}</span>`;
 }
 
+// Teachers shown publicly: validated ones only. As soon as real (database) teachers exist,
+// the example profiles of data/teachers.json are left out, so the two are never mixed.
+function directoryTeachers(data) {
+  const listed = data.teachers.filter(t => !t.pending);
+  const real = listed.filter(t => !t.sample);
+  return real.length ? real : listed;
+}
+
+const teacherUrl = t => `professeur.html?id=${encodeURIComponent(t.id)}`;
+const teacherLevels = t => ["bac", "bepc"].filter(l => (t.levels || []).includes(l)).map(l => LEVELS[l]);
+const yearsLabel = y => y ? `${y} an${y > 1 ? "s" : ""} d'expérience` : "";
+
 function teacherCard(t, data, count) {
-  const s = data.bySubject[t.subject];
+  const s = data.bySubject[t.subject], levels = teacherLevels(t);
   return `<article class="tcard tcard--teacher">
+    ${t.sample ? `<span class="badge badge--sample">Profil d'exemple</span>` : ""}
     <div class="tcard__who">
-      ${avatarHtml(t.name, s?.color, t.avatar)}
-      <div><strong>${esc(t.name)}</strong><p class="tcard__job">${esc(s?.label || "")}${t.years ? ` · ${t.years} ans d'expérience` : ""}</p></div>
+      ${avatarHtml(t.name, s?.color, t.avatar, "avatar--md")}
+      <div>
+        <strong>${esc(t.name)}</strong>
+        <p class="tcard__subject">${esc(s?.label || "")}</p>
+        ${t.years ? `<p class="tcard__job">${esc(yearsLabel(t.years))}</p>` : ""}
+      </div>
     </div>
-    <p>${esc(t.bio)}</p>
-    <div class="card__badges">${(t.levels || []).map(l => `<span class="badge badge--${esc(l)}">${esc(LEVELS[l])}</span>`).join("")}</div>
-    <a class="link-arrow" href="catalogue.html?prof=${encodeURIComponent(t.id)}">Voir ses ${count} cours →</a>
+    ${levels.length ? `<p class="tcard__levels">${levels.join(" • ")}</p>` : ""}
+    ${t.bio ? `<p class="tcard__bio">${esc(t.bio)}</p>` : ""}
+    <div class="tcard__actions">
+      <a class="btn btn--secondary btn--sm" href="${teacherUrl(t)}">Voir le profil</a>
+      <a class="btn btn--primary btn--sm" href="${teacherUrl(t)}#cours">Voir ses cours${count ? ` (${count})` : ""}</a>
+    </div>
   </article>`;
 }
 

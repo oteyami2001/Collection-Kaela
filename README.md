@@ -20,7 +20,8 @@ python3 -m http.server 8000
 | `index.html` | Accueil : recherche, choix BEPC/BAC, matières, cours à la une, méthode, professeurs, fonctionnalités à venir, témoignages, FAQ |
 | `catalogue.html` | Tous les cours, filtres niveau / matière / professeur, recherche et tri (synchronisés dans l'URL, ex. `?niveau=bac&matiere=maths`) |
 | `cours.html?c=<slug>` | Page de cours : lecteur vidéo, sommaire, progression, vidéo précédente/suivante |
-| `professeurs.html` | Liste des professeurs validés avec leur photo, filtre par matière |
+| `professeurs.html` | Annuaire des professeurs validés (photo, matière, expérience, niveaux, présentation), filtre par matière ; les vrais professeurs remplacent les profils d'exemple |
+| `professeur.html?id=<id>` | Profil d'un professeur et ses cours publiés (« Voir le cours » ouvre `cours.html`) |
 | `inscription.html` | Inscription élève (niveau BEPC/BAC + série) ou professeur (matière, niveaux) — `?role=prof` pré-sélectionne professeur |
 | `connexion.html` | Connexion |
 | `espace.html` | Espace élève (cours de son niveau, progression) ou espace professeur (photo de profil, publier un cours : fichiers vidéo ou liens YouTube, brouillons) |
@@ -42,7 +43,7 @@ Les professeurs, cours et témoignages actuels sont **des exemples** à remplace
 
 ### Mises à jour et cache des navigateurs
 
-Les pages chargent les fichiers CSS et JavaScript avec un numéro de version (`styles.css?v=20261013b`, `espace.js?v=20261013b`…). Quand vous modifiez un fichier de `assets/`, changez ce numéro dans les pages HTML : les navigateurs téléchargeront alors la nouvelle version au lieu de garder l'ancienne en mémoire. GitHub Pages laisse aussi les navigateurs garder une page jusqu'à 10 minutes : après une mise à jour, attendez quelques minutes ou rechargez avec Ctrl+F5 (Cmd+Maj+R sur Mac).
+Les pages chargent les fichiers CSS et JavaScript avec un numéro de version (`styles.css?v=20261013c`, `espace.js?v=20261013c`…). Quand vous modifiez un fichier de `assets/`, changez ce numéro dans les pages HTML : les navigateurs téléchargeront alors la nouvelle version au lieu de garder l'ancienne en mémoire. GitHub Pages laisse aussi les navigateurs garder une page jusqu'à 10 minutes : après une mise à jour, attendez quelques minutes ou rechargez avec Ctrl+F5 (Cmd+Maj+R sur Mac).
 
 ## Base de données (Supabase)
 

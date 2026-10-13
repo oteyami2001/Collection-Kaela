@@ -465,3 +465,29 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 .photo-field input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
 .photo-field .btn:disabled { opacity: .5; cursor: not-allowed; }
 .photo-field .alert { margin: 12px 0 0; }
+
+/* Teacher directory cards and profile page */
+.avatar--md { width: 72px; height: 72px; font-size: 1.25rem; }
+.avatar--xl { width: 144px; height: 144px; font-size: 2.6rem; box-shadow: 0 0 0 5px #fff, var(--shadow-md); }
+.tcard--teacher { position: relative; gap: 14px; transition: box-shadow .2s, transform .2s; }
+.tcard--teacher:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.tcard--teacher .tcard__who strong { font-size: 1.1rem; }
+.tcard__subject { margin: 2px 0 0; color: var(--brand); font-weight: 700; font-size: .95rem; }
+.tcard__levels { margin: 0; font-weight: 700; font-size: .85rem; letter-spacing: .04em; color: var(--brand-dark); }
+.tcard__bio { margin: 0; color: var(--ink-soft); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.tcard__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
+.badge--sample { background: #fef3c7; color: #92400e; justify-self: start; align-self: flex-start; }
+.directory-note { margin: 0 0 20px; }
+.profile-hero { display: grid; gap: 24px; align-items: center; justify-items: center; text-align: center; }
+.profile-hero h1 { margin: 0; }
+.profile-hero__subject { margin: 4px 0 0; color: var(--brand); font-weight: 700; font-size: 1.15rem; }
+.profile-hero__facts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin: 12px 0 0; }
+.profile-hero__bio { margin: 16px 0 0; max-width: 65ch; color: var(--ink); }
+.profile-hero__actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+#cours { scroll-margin-top: 88px; }
+.card__summary { margin: 0; color: var(--ink-soft); font-size: .92rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card__body .btn { align-self: flex-start; position: relative; z-index: 1; }
+@media (min-width: 768px) {
+  .profile-hero { grid-template-columns: auto 1fr; justify-items: start; text-align: left; gap: 40px; }
+  .profile-hero__facts, .profile-hero__actions { justify-content: flex-start; }
+}
