@@ -1,19 +1,19 @@
-/* ===== Tokens — Édition Kaela (bleu & marine du logo, rouge et jaune des affiches) ===== */
+/* Couleurs du logo « Réussir à 100 % » : vert, orange et or de l'étoile */
 :root {
-  --brand: #0a6cbd;
-  --brand-dark: #0b1f4a;
+  --brand: #00843c;          /* vert du logo : boutons, liens, éléments actifs */
+  --brand-dark: #0d3b24;     /* vert profond : bandeau d'annonce, sections sombres */
   --brand-tint: color-mix(in srgb, var(--brand) 8%, white);
-  --accent: #e3262f;
-  --sun: #ffd400;
-  --accent-tint: color-mix(in srgb, var(--accent) 14%, white);
-  --accent-ink: #9b1720;
-  --ink: #0e1630;
-  --ink-soft: #4a5370;
-  --line: #e1e6f0;
+  --accent: #e65c00;         /* orange du logo : titres mis en valeur, contours de focus */
+  --sun: #fcb316;            /* or de l'étoile : étiquettes et boutons du bandeau sombre */
+  --accent-tint: color-mix(in srgb, #f26a10 14%, white);
+  --accent-ink: #9a3d00;     /* orange foncé lisible pour les petits textes */
+  --ink: #12211a;
+  --ink-soft: #4a5a52;
+  --line: #e2e8e4;
   --surface: #fff;
   --bg: #fff;
-  --bg-alt: #f4f7fc;
-  --success: #0b7a4b;
+  --bg-alt: #f5f8f6;
+  --success: #00843c;
   --bepc: #1d4ed8;
   --bac: #b45309;
 
@@ -21,8 +21,8 @@
   --font-body: "Inter", system-ui, sans-serif;
 
   --r-sm: 8px; --r-md: 16px; --r-lg: 24px; --r-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(14 22 48 / .06);
-  --shadow-md: 0 8px 24px rgb(14 22 48 / .10);
+  --shadow-sm: 0 1px 2px rgb(18 33 26 / .06);
+  --shadow-md: 0 8px 24px rgb(18 33 26 / .10);
   --gutter: 16px;
   --section-y: 64px;
 }
@@ -57,7 +57,7 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 .btn--primary { background: var(--brand); color: #fff; }
 .btn--primary:hover { background: var(--brand-dark); }
 .btn--accent { background: var(--accent); color: #fff; }
-.btn--accent:hover { background: #b81c24; }
+.btn--accent:hover { background: #b84a00; }
 .btn--secondary { background: #fff; color: var(--brand); border-color: var(--brand); }
 .btn--secondary:hover { background: var(--brand-tint); }
 .btn--ghost { color: var(--ink); background: none; }
@@ -296,7 +296,7 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 /* ===== Forms ===== */
 .field { display: grid; gap: 6px; }
 .field label, .field .label { font-weight: 600; font-size: .9rem; }
-.field input, .field select, .field textarea, .select { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #c5cddd; border-radius: var(--r-sm); font: 1rem var(--font-body); color: var(--ink); background: #fff; }
+.field input, .field select, .field textarea, .select { width: 100%; min-height: 48px; padding: 10px 14px; border: 1px solid #c9d3cd; border-radius: var(--r-sm); font: 1rem var(--font-body); color: var(--ink); background: #fff; }
 .field textarea { min-height: 110px; resize: vertical; }
 .field input:focus, .field select:focus, .field textarea:focus, .select:focus { outline: 3px solid color-mix(in srgb, var(--brand) 35%, white); border-color: var(--brand); }
 .field small { color: var(--ink-soft); }
@@ -407,7 +407,7 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 /* ===== Photos, livres ===== */
 .hero__photo { position: relative; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 3/2; }
 .hero__photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
-.hero__visual .hero__book { position: absolute; width: 30%; right: -4%; bottom: -10%; transform: rotate(6deg); filter: drop-shadow(0 12px 20px rgb(14 22 48 / .3)); border-radius: 6px; }
+.hero__visual .hero__book { position: absolute; width: 30%; right: -4%; bottom: -10%; transform: rotate(6deg); filter: drop-shadow(0 12px 20px rgb(18 33 26 / .3)); border-radius: 6px; }
 .hero__visual .float--a { bottom: 6%; }
 .hero h1 span { color: var(--accent); }
 
@@ -425,7 +425,7 @@ legend { font-weight: 700; margin-bottom: 8px; font-size: .95rem; }
 .books-cta strong { color: #fff; font-size: 1.15rem; display: block; }
 .books-cta__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn--sun { background: var(--sun); color: var(--brand-dark); }
-.btn--sun:hover { background: #ffe34d; }
+.btn--sun:hover { background: #ffc94a; }
 .features { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
 .features span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--r-pill); background: #fff; border: 1px solid var(--line); font-weight: 600; font-size: .875rem; }
 
