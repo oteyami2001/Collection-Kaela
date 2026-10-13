@@ -51,8 +51,7 @@ function teacherView(data, user, welcome) {
 
   const subject = data.bySubject[user.subject];
   $("#subtitle").textContent = `Espace professeur · ${subject?.label || ""}`;
-  $("#pAvatar").textContent = initials(`${user.firstName} ${user.lastName}`);
-  $("#pAvatar").style.setProperty("--c", subject?.color || "var(--brand)");
+  setupAvatar(user, subject);
   $("#pName").textContent = `${user.firstName} ${user.lastName}`;
   $("#pSubject").textContent = [subject?.label, (user.levels || []).map(l => LEVELS[l]).join(" & ")].filter(Boolean).join(" · ");
   $("#pBio").textContent = user.bio || "Ajoutez une présentation lors de votre inscription.";
@@ -169,6 +168,42 @@ function teacherView(data, user, welcome) {
       showErr(e2.message);
       submit.disabled = false; submit.textContent = "Publier le cours";
       $("#uploadBox").hidden = true;
+    }
+  });
+}
+
+// "Mon profil": profile picture with the initials as fallback, uploaded through api.uploadAvatar.
+function setupAvatar(user, subject) {
+  const name = `${user.firstName} ${user.lastName}`;
+  const show = url => { $("#pAvatar").innerHTML = avatarHtml(name, subject?.color, url, "avatar--lg"); };
+  const msg = (text, ok) => { const el = $("#avatarMsg"); el.textContent = text; el.hidden = !text; el.classList.toggle("alert--ok", !!ok); };
+  const setLabel = () => { $("#avatarBtn").textContent = user.avatarUrl ? "Changer ma photo" : "Choisir une photo"; };
+  show(user.avatarUrl);
+  setLabel();
+
+  $("#avatarInput").addEventListener("change", async e => {
+    const file = e.target.files[0];
+    e.target.value = "";                         // allow choosing the same file again
+    if (!file) return;
+    msg("");
+    try { checkAvatarFile(file); } catch (err) { return msg(err.message); }
+    const previous = user.avatarUrl;
+    const preview = URL.createObjectURL(file);   // show the chosen photo right away
+    $("#pAvatar").innerHTML = avatarHtml(name, subject?.color, "", "avatar--lg is-uploading");
+    $(".avatar", $("#pAvatar")).insertAdjacentHTML("beforeend", `<img src="${preview}" alt="">`);
+    $("#avatarBtn").textContent = "Envoi…";
+    $("#avatarInput").disabled = true;
+    try {
+      const url = await api.uploadAvatar(user, file);
+      show(url);
+      msg("Photo de profil enregistrée.", true);
+    } catch (err) {
+      show(previous);
+      msg(err.message);
+    } finally {
+      URL.revokeObjectURL(preview);
+      $("#avatarInput").disabled = false;
+      setLabel();
     }
   });
 }

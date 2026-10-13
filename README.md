@@ -20,10 +20,10 @@ python3 -m http.server 8000
 | `index.html` | Accueil : recherche, choix BEPC/BAC, matières, cours à la une, méthode, professeurs, fonctionnalités à venir, témoignages, FAQ |
 | `catalogue.html` | Tous les cours, filtres niveau / matière / professeur, recherche et tri (synchronisés dans l'URL, ex. `?niveau=bac&matiere=maths`) |
 | `cours.html?c=<slug>` | Page de cours : lecteur vidéo, sommaire, progression, vidéo précédente/suivante |
-| `professeurs.html` | Liste des professeurs, filtre par matière |
+| `professeurs.html` | Liste des professeurs validés avec leur photo, filtre par matière |
 | `inscription.html` | Inscription élève (niveau BEPC/BAC + série) ou professeur (matière, niveaux) — `?role=prof` pré-sélectionne professeur |
 | `connexion.html` | Connexion |
-| `espace.html` | Espace élève (cours de son niveau, progression) ou espace professeur (publier un cours : fichiers vidéo ou liens YouTube, brouillons) |
+| `espace.html` | Espace élève (cours de son niveau, progression) ou espace professeur (photo de profil, publier un cours : fichiers vidéo ou liens YouTube, brouillons) |
 | `admin.html` | Administration : valider les professeurs, mettre des cours à la une, masquer ou supprimer |
 | `motdepasse.html` | Mot de passe oublié |
 

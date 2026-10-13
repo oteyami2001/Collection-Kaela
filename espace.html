@@ -96,7 +96,17 @@
       <div class="form-grid" style="align-content:start;gap:24px">
         <section class="panel">
           <h2>Mon profil</h2>
-          <div class="tcard__who"><span class="avatar" id="pAvatar" aria-hidden="true"></span><div><strong id="pName"></strong><p class="tcard__job" id="pSubject"></p></div></div>
+          <div class="avatar-edit">
+            <span id="pAvatar"></span>
+            <div>
+              <strong id="pName"></strong>
+              <p class="tcard__job" id="pSubject"></p>
+              <input class="sr-only" id="avatarInput" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+              <label class="btn btn--secondary btn--sm" for="avatarInput" id="avatarBtn">Choisir une photo</label>
+              <small>JPG, JPEG, PNG ou WebP · 5 Mo maximum</small>
+            </div>
+          </div>
+          <p class="alert" id="avatarMsg" role="status" hidden style="margin-top:12px"></p>
           <p class="muted" id="pBio" style="margin-top:12px"></p>
         </section>
         <section class="panel">

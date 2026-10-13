@@ -231,7 +231,16 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 .tcard { scroll-snap-align: start; background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 24px; display: flex; flex-direction: column; gap: 12px; }
 .tcard p { margin: 0; }
 .tcard__who { display: flex; gap: 12px; align-items: center; }
-.avatar { --c: var(--accent); width: 56px; height: 56px; border-radius: 50%; background: color-mix(in srgb, var(--c) 14%, white); color: color-mix(in srgb, var(--c) 70%, black); display: grid; place-items: center; font-weight: 800; flex: none; }
+.avatar { --c: var(--accent); width: 56px; height: 56px; border-radius: 50%; background: color-mix(in srgb, var(--c) 14%, white); color: color-mix(in srgb, var(--c) 70%, black); display: grid; place-items: center; font-weight: 800; flex: none; position: relative; overflow: hidden; }
+.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.avatar--lg { width: 96px; height: 96px; font-size: 1.7rem; box-shadow: 0 0 0 4px #fff, 0 0 0 5px var(--line); }
+.avatar-edit { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+.avatar-edit > div { display: grid; gap: 6px; min-width: 0; }
+.avatar-edit p { margin: 0; }
+.avatar-edit small { color: var(--ink-soft); }
+.avatar-edit .btn { justify-self: start; }
+.avatar-edit input:focus-visible + label { outline: 3px solid var(--accent); outline-offset: 2px; }
+.avatar.is-uploading img { opacity: .55; }
 .tcard__job { color: var(--ink-soft); font-size: .85rem; margin: 0; }
 .stars { color: #b45309; letter-spacing: 2px; }
 .tcard blockquote { margin: 0; }

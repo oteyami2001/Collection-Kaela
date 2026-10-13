@@ -7,6 +7,7 @@
 const CFG = window.CK_CONFIG || {};
 const SUPABASE_LIB = "assets/vendor/supabase-2.116.0.js";
 const VIDEO_BUCKET = "videos";
+const AVATAR_BUCKET = "avatars";
 
 const loadScript = src => new Promise((resolve, reject) => {
   const s = document.createElement("script");
@@ -25,6 +26,7 @@ function frError(err) {
     [/rate limit|too many requests/i, "Trop de tentatives. Patientez quelques minutes puis réessayez."],
     [/payload too large|exceeded the maximum allowed size|413/i, "Fichier vidéo trop volumineux pour votre offre Supabase."],
     [/mime type|invalid_mime/i, "Format vidéo non accepté (MP4, WebM ou MOV)."],
+    [/profiles_avatar_url_check/i, "Adresse de photo refusée : envoyez la photo depuis votre espace."],
     [/row-level security|permission denied/i, "Action non autorisée pour votre compte."],
     [/failed to fetch|networkerror|load failed|réseau/i, "Connexion impossible. Vérifiez votre connexion Internet."]
   ];
@@ -55,6 +57,43 @@ const localProgress = {
   }
 };
 
+// ---------- Profile pictures ----------
+const AVATAR_TYPES = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
+const AVATAR_MAX_MB = 5;
+
+function checkAvatarFile(file) {
+  if (!file) throw new Error("Choisissez une photo.");
+  const ext = (file.name.split(".").pop() || "").toLowerCase();
+  if (!AVATAR_TYPES[file.type] || !["jpg", "jpeg", "png", "webp"].includes(ext)) {
+    throw new Error("Format non accepté : choisissez une photo JPG, JPEG, PNG ou WebP.");
+  }
+  if (file.size > AVATAR_MAX_MB * 1024 * 1024) {
+    throw new Error(`Photo trop lourde (${(file.size / 1048576).toFixed(1)} Mo) : ${AVATAR_MAX_MB} Mo maximum.`);
+  }
+}
+
+// Center-crops the photo to a square and shrinks it to `size` px (JPEG), so the teachers
+// page stays light on mobile data. Resolves to null if the browser cannot decode the image.
+async function squareJpeg(file, size) {
+  try {
+    const img = await new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file), i = new Image();
+      i.onload = () => { URL.revokeObjectURL(url); resolve(i); };
+      i.onerror = () => { URL.revokeObjectURL(url); reject(new Error("decode")); };
+      i.src = url;
+    });
+    const side = Math.min(img.naturalWidth, img.naturalHeight);
+    if (!side) return null;
+    const out = Math.min(size, side), canvas = document.createElement("canvas");
+    canvas.width = canvas.height = out;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fff";                       // transparent PNG/WebP → white background
+    ctx.fillRect(0, 0, out, out);
+    ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, out, out);
+    return await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", 0.86));
+  } catch { return null; }
+}
+
 // ======================================================================
 // Demo backend
 // ======================================================================
@@ -84,7 +123,7 @@ const demo = {
     const teachers = [...sample.teachers], courses = [...sample.courses, ...store.get("ck-courses", [])];
     const user = await this.user();
     if (user?.role === "prof") {
-      teachers.push({ id: "me", self: true, name: `${user.firstName} ${user.lastName}`, subject: user.subject, levels: user.levels || [], years: user.years, bio: user.bio || "" });
+      teachers.push({ id: "me", self: true, name: `${user.firstName} ${user.lastName}`, subject: user.subject, levels: user.levels || [], years: user.years, bio: user.bio || "", avatar: user.avatarUrl || "" });
     }
     return { subjects, teachers, courses };
   },
@@ -103,7 +142,24 @@ const demo = {
     store.set("ck-courses", store.get("ck-courses", []).filter(c => c.slug !== course.slug));
   },
   async adminTeachers() { throw new Error("L'administration est disponible quand la base de données est connectée."); },
-  async adminSetTeacher() {}, async adminSetCourse() {}
+  async adminSetTeacher() {}, async adminSetCourse() {},
+  // Demo: the (small) picture is kept as a data URL in this browser only.
+  async uploadAvatar(user, file) {
+    checkAvatarFile(file);
+    const blob = await squareJpeg(file, 256);
+    if (!blob) throw new Error("Impossible de lire cette photo. Essayez une autre image.");
+    const url = await new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(r.result); r.onerror = () => reject(new Error("Lecture de la photo impossible."));
+      r.readAsDataURL(blob);
+    });
+    for (const key of ["ck-user", "ck-account"]) {
+      const u = store.get(key, null);
+      if (u) store.set(key, { ...u, avatarUrl: url });
+    }
+    user.avatarUrl = url;
+    return url;
+  }
 };
 
 // ======================================================================
@@ -114,7 +170,7 @@ let sb = null, userCache = null;
 const fromProfile = (p, email) => p && ({
   id: p.id, email, role: p.role, firstName: p.first_name, lastName: p.last_name, phone: p.phone || "", school: p.school || "",
   level: p.level, series: p.series || "", subject: p.subject, levels: p.levels || [], years: p.years, bio: p.bio || "",
-  status: p.role === "prof" ? p.teacher_status : "approved", isAdmin: !!p.is_admin
+  status: p.role === "prof" ? p.teacher_status : "approved", isAdmin: !!p.is_admin, avatarUrl: p.avatar_url || ""
 });
 
 const videoUrl = path => sb.storage.from(VIDEO_BUCKET).getPublicUrl(path).data.publicUrl;
@@ -205,9 +261,9 @@ const supa = {
     ]);
     for (const r of [subjectsRes, teachersRes, coursesRes]) if (r.error) console.error(r.error);
     const subjects = subjectsRes.data?.length ? subjectsRes.data : await load("subjects");
-    const teachers = (teachersRes.data || []).map(t => ({ id: t.id, name: `${t.first_name} ${t.last_name}`, subject: t.subject, levels: t.levels || [], years: t.years, bio: t.bio || "" }));
+    const teachers = (teachersRes.data || []).map(t => ({ id: t.id, name: `${t.first_name} ${t.last_name}`, subject: t.subject, levels: t.levels || [], years: t.years, bio: t.bio || "", avatar: t.avatar_url || "" }));
     if (user?.role === "prof" && !teachers.some(t => t.id === user.id)) {
-      teachers.push({ id: user.id, name: `${user.firstName} ${user.lastName}`, subject: user.subject, levels: user.levels, years: user.years, bio: user.bio, pending: user.status !== "approved" });
+      teachers.push({ id: user.id, name: `${user.firstName} ${user.lastName}`, subject: user.subject, levels: user.levels, years: user.years, bio: user.bio, avatar: user.avatarUrl, pending: user.status !== "approved" });
     }
     teachers.forEach(t => { if (t.id === user?.id) t.self = true; });
     return { subjects, teachers: [...teachers, ...sample.teachers], courses: [...(coursesRes.data || []).map(fromCourse), ...sample.courses] };
@@ -292,6 +348,31 @@ const supa = {
   async adminSetCourse(id, published, featured) {
     const { error } = await sb.rpc("admin_set_course", { course: id, is_published: published, is_featured: featured });
     if (error) fail(error);
+  },
+  // Uploads the picture to avatars/<uid>/profile-<time>.jpg (a new name each time, so browsers
+  // never show a cached old photo), saves its public URL in profiles.avatar_url, then removes
+  // the previous file.
+  async uploadAvatar(user, file) {
+    checkAvatarFile(file);
+    const blob = await squareJpeg(file, 512);
+    const ext = blob ? "jpg" : AVATAR_TYPES[file.type];
+    const path = `${user.id}/profile-${Date.now()}.${ext}`;
+    const bucket = sb.storage.from(AVATAR_BUCKET);
+    const { error } = await bucket.upload(path, blob || file, { contentType: blob ? "image/jpeg" : file.type, cacheControl: "31536000", upsert: false });
+    if (error) fail(error);
+    const url = bucket.getPublicUrl(path).data.publicUrl;
+    const { error: saveError } = await sb.from("profiles").update({ avatar_url: url }).eq("id", user.id);
+    if (saveError) {
+      await bucket.remove([path]);
+      fail(saveError);
+    }
+    const marker = `/object/public/${AVATAR_BUCKET}/`;
+    const previous = (user.avatarUrl || "").includes(marker) ? user.avatarUrl.split(marker)[1].split("?")[0] : "";
+    if (previous && previous !== path && previous.startsWith(`${user.id}/`)) {
+      bucket.remove([previous]).then(({ error: e }) => e && console.warn("Ancienne photo non supprimée", e));
+    }
+    user.avatarUrl = url;
+    return url;
   }
 };
 
