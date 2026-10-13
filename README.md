@@ -35,7 +35,7 @@ python3 -m http.server 8000
 - **Professeurs** : `data/teachers.json`
 - **Témoignages / FAQ** : `data/testimonials.json`, `data/faq.json`
 - **Livres Édition Kaela** : `data/books.json` (couvertures dans `img/livres/`)
-- **Photos d'élèves** : `img/eleves/` · **Logo** : `img/logo-edition-kaela.webp` (version blanche pour le pied de page : `img/logo-edition-kaela-blanc.webp`)
+- **Photos d'élèves** : `img/eleves/` · **Logo du site** : `img/logo-reussir-100.webp` (et `@2x` pour les écrans haute définition) · **Icône d'onglet** : `img/favicon.png`, `img/apple-touch-icon.png`
 - **Coordonnées** (téléphones, e-mail, adresse) : constante `CONTACT` dans `assets/js/common.js`
 - **Couleurs et polices** : variables `:root` en haut de `assets/css/styles.css` (bleu `--brand` et marine `--brand-dark` du logo, rouge `--accent` et jaune `--sun` des affiches)
 
@@ -43,7 +43,7 @@ Les professeurs, cours et témoignages actuels sont **des exemples** à remplace
 
 ### Mises à jour et cache des navigateurs
 
-Les pages chargent les fichiers CSS et JavaScript avec un numéro de version (`styles.css?v=20261013c`, `espace.js?v=20261013c`…). Quand vous modifiez un fichier de `assets/`, changez ce numéro dans les pages HTML : les navigateurs téléchargeront alors la nouvelle version au lieu de garder l'ancienne en mémoire. GitHub Pages laisse aussi les navigateurs garder une page jusqu'à 10 minutes : après une mise à jour, attendez quelques minutes ou rechargez avec Ctrl+F5 (Cmd+Maj+R sur Mac).
+Les pages chargent les fichiers CSS et JavaScript avec un numéro de version (`styles.css?v=20261013d`, `espace.js?v=20261013d`…). Quand vous modifiez un fichier de `assets/`, changez ce numéro dans les pages HTML : les navigateurs téléchargeront alors la nouvelle version au lieu de garder l'ancienne en mémoire. GitHub Pages laisse aussi les navigateurs garder une page jusqu'à 10 minutes : après une mise à jour, attendez quelques minutes ou rechargez avec Ctrl+F5 (Cmd+Maj+R sur Mac).
 
 ## Base de données (Supabase)
 

@@ -90,9 +90,9 @@ ul, ol { padding: 0; margin: 0; list-style: none; }
 .header__inner { display: flex; align-items: center; gap: 24px; min-height: 72px; position: relative; }
 .logo { flex: none; white-space: nowrap; display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
 .logo svg { flex: none; }
-.logo__img { height: 50px; width: auto; }
+.logo__img { height: 64px; width: 64px; border-radius: 50%; }
 .logo__text { font: 800 .95rem/1.1 var(--font-head); display: flex; flex-direction: column; padding-left: 12px; border-left: 2px solid var(--line); color: var(--brand-dark); }
-.footer .logo__img { height: 64px; }
+.footer .logo__img { height: 88px; width: 88px; border-radius: 20px; background: #fff; padding: 4px; }
 .logo__text small { font: 600 .7rem var(--font-body); color: var(--accent-ink); text-transform: uppercase; letter-spacing: .06em; margin-top: 2px; }
 .nav { display: none; }
 .nav__list { display: flex; gap: 4px; }

@@ -114,9 +114,9 @@ function bookCard(b) {
 }
 
 // ----- Layout -----
-// Brand logo (img/logo-edition-kaela*.webp) and contact details from the Édition Kaela flyer.
-const LOGO = `<img class="logo__img" src="img/logo-edition-kaela.webp" alt="" width="125" height="50">`;
-const LOGO_LIGHT = `<img class="logo__img" src="img/logo-edition-kaela-blanc.webp" alt="" width="150" height="60">`;
+// Site logo « Réussir à 100 % » (img/logo-reussir-100*.webp) and contact details from the Édition Kaela flyer.
+const LOGO = `<img class="logo__img" src="img/logo-reussir-100.webp" srcset="img/logo-reussir-100.webp 1x, img/logo-reussir-100@2x.webp 2x" alt="" width="64" height="64">`;
+const LOGO_LIGHT = LOGO.replace('width="64" height="64"', 'width="88" height="88"');
 const CONTACT = {
   phones: ["+225 07 07 81 50 28", "+225 01 41 73 77 85"],
   email: "editionkaela@gmail.com",
@@ -134,7 +134,7 @@ function renderHeader(subjects, user) {
   $("#site-header").outerHTML = `
   <header class="header" id="header">
     <div class="container header__inner">
-      <a href="index.html" class="logo" aria-label="Édition Kaela — Préparation d'examen, accueil">${LOGO}
+      <a href="index.html" class="logo" aria-label="Collection Kaela, Réussir à 100 % — Préparation d'examen, accueil">${LOGO}
         <span class="logo__text">Préparation<small>d'examen</small></span>
       </a>
       <nav class="nav" id="nav" aria-label="Navigation principale">
@@ -184,7 +184,7 @@ function renderFooter() {
   <footer class="footer">
     <div class="container footer__grid">
       <div>
-        <a href="index.html" class="logo logo--light" aria-label="Édition Kaela, accueil">${LOGO_LIGHT}</a>
+        <a href="index.html" class="logo logo--light" aria-label="Collection Kaela, Réussir à 100 %, accueil">${LOGO_LIGHT}</a>
         <p>Préparation d'Examen Collection Kaela : la plateforme ivoirienne qui accompagne les élèves vers la réussite au BEPC et au BAC.</p>
         <ul class="footer__contact">
           <li>📞 ${CONTACT.phones.map(n => `<a href="${tel(n)}">${n}</a>`).join(" · ")}</li>
