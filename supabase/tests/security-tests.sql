@@ -98,3 +98,25 @@ select eq('cours à la une', 'select count(*) from courses where featured', 1);
 -- suppression en cascade
 delete from auth.users where id='00000000-0000-0000-0000-000000000002';
 select eq('suppression du compte prof supprime ses cours', 'select count(*) from courses', 0);
+
+-- ===== photos de profil
+set role authenticated; set request.jwt.claim.sub = '00000000-0000-0000-0000-000000000003';
+select t('prof enregistre sa photo (son dossier)', $$update profiles set avatar_url='https://abcd.supabase.co/storage/v1/object/public/avatars/00000000-0000-0000-0000-000000000003/profile-1760000000000.jpg' where id=auth.uid()$$, true);
+select t('photo hors du bucket refusée', $$update profiles set avatar_url='https://evil.example.com/x.jpg' where id=auth.uid()$$, false);
+select t('photo dans le dossier d''un autre refusée', $$update profiles set avatar_url='https://abcd.supabase.co/storage/v1/object/public/avatars/00000000-0000-0000-0000-000000000001/profile.jpg' where id=auth.uid()$$, false);
+select t('photo d''un autre bucket refusée', $$update profiles set avatar_url='https://abcd.supabase.co/storage/v1/object/public/videos/00000000-0000-0000-0000-000000000003/a.jpg' where id=auth.uid()$$, false);
+select t('prof envoie sa photo dans son dossier', $$insert into storage.objects (bucket_id, name) values ('avatars','00000000-0000-0000-0000-000000000003/profile-1.jpg')$$, true);
+select t('prof n''envoie pas de photo dans le dossier d''un autre', $$insert into storage.objects (bucket_id, name) values ('avatars','00000000-0000-0000-0000-000000000001/profile.jpg')$$, false);
+select eq('un autre ne modifie pas la photo du prof', $$with u as (update profiles set avatar_url=null where id='00000000-0000-0000-0000-000000000001' and false returning 1) select count(*) from u$$, 0);
+reset role;
+set role authenticated; set request.jwt.claim.sub = '00000000-0000-0000-0000-000000000001';
+select eq('élève ne modifie pas la photo du prof', $$with u as (update profiles set avatar_url=null where id='00000000-0000-0000-0000-000000000003' returning 1) select count(*) from u$$, 0);
+reset role;
+set role authenticated; set request.jwt.claim.sub = '00000000-0000-0000-0000-00000000000a';
+select t('admin valide le 2e prof', $$select admin_set_teacher_status('00000000-0000-0000-0000-000000000003','approved')$$, true);
+reset role;
+set role anon; set request.jwt.claim.sub = '';
+select eq('anonyme voit la photo du prof validé', $$select count(*) from public_teachers where avatar_url like 'https://%/avatars/%'$$, 1);
+select t('vue publique toujours sans téléphone', 'select phone from public_teachers', false);
+select t('vue publique sans e-mail', 'select email from public_teachers', false);
+reset role;

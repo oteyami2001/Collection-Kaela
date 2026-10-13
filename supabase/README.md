@@ -17,6 +17,14 @@ Comptez environ 20 minutes. Tant que ces étapes ne sont pas faites, le site res
 
 Le script peut être relancé sans risque : il ne supprime aucune donnée.
 
+### Mises à jour d'une base déjà installée
+
+Si votre base a été créée avec une version précédente de `schema.sql`, exécutez aussi, une seule fois, les fichiers du dossier [`migrations/`](migrations) qui ne l'ont pas encore été (SQL Editor → New query → coller → Run) :
+
+| Fichier | Ajoute |
+|---|---|
+| [`2026-10-13-photos-profil.sql`](migrations/2026-10-13-photos-profil.sql) | Photos de profil des professeurs : droit de modifier `avatar_url`, photo dans la liste publique des professeurs, bucket `avatars` |
+
 ## 3. Régler l'authentification
 
 Dans **Authentication** → **URL Configuration** :
@@ -81,8 +89,9 @@ Quand vos vrais professeurs auront publié leurs cours, passez `showSampleConten
 | `lessons` | Les vidéos de chaque cours : ordre, titre, durée, lien ou fichier | Visibles avec leur cours ; modifiables par le professeur du cours |
 | `progress` | Les vidéos vues par chaque élève | Chaque élève ne voit et ne modifie que sa progression |
 | Stockage `videos` | Les fichiers vidéo, rangés dans un dossier par professeur | Lecture publique par lien ; envoi par les professeurs validés, dans leur propre dossier |
+| Stockage `avatars` | Les photos de profil (JPG, PNG, WebP, 5 Mo max.), dans `avatars/<id du compte>/` | Lecture publique par lien ; chacun gère uniquement les fichiers de son dossier. `profiles.avatar_url` n'accepte qu'une photo de ce dossier |
 
-Les coordonnées (e-mail, téléphone, établissement) ne sont jamais visibles du public : la liste publique des professeurs (`public_teachers`) ne montre que le nom, la matière, les niveaux, l'expérience et la présentation.
+Les coordonnées (e-mail, téléphone, établissement) ne sont jamais visibles du public : la liste publique des professeurs (`public_teachers`) ne montre que le nom, la matière, les niveaux, l'expérience, la présentation et la photo de profil.
 
 ## Les vidéos et leur taille
 
@@ -102,4 +111,4 @@ psql -d ck_test -f supabase/schema.sql
 psql -d ck_test -f supabase/tests/security-tests.sql  # chaque ligne affiche PASS ou **FAIL**
 ```
 
-Les 44 vérifications couvrent l'inscription, la validation des professeurs, la publication, les vidéos, la progression et l'administration.
+Les 56 vérifications couvrent l'inscription, la validation des professeurs, la publication, les vidéos, la progression, l'administration et les photos de profil.

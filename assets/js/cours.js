@@ -27,7 +27,7 @@
 
   if (teacher) {
     $("#profBox").innerHTML = `
-      <span class="avatar" style="--c:${esc(subject?.color || "var(--brand)")}" aria-hidden="true">${esc(initials(teacher.name))}</span>
+      ${avatarHtml(teacher.name, subject?.color, teacher.avatar)}
       <div><strong>${esc(teacher.name)}</strong><p class="muted">${esc(teacher.bio)}</p>
       <a class="link-arrow" href="catalogue.html?prof=${encodeURIComponent(teacher.id)}">Tous ses cours →</a></div>`;
   }

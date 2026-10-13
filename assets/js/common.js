@@ -60,11 +60,19 @@ function courseCard(c, data) {
   </article>`;
 }
 
+// Round profile picture; the initials stay underneath as a fallback (no photo, or image failing to load).
+// Only Supabase https URLs and the demo's small data: URLs are rendered.
+function avatarHtml(name, color, url, extraClass = "") {
+  const src = /^(https:\/\/|data:image\/(jpeg|png|webp);base64,)/.test(url || "") ? url : "";
+  return `<span class="avatar ${extraClass}" style="--c:${esc(color || "var(--brand)")}" aria-hidden="true">${esc(initials(name))}${
+    src ? `<img src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : ""}</span>`;
+}
+
 function teacherCard(t, data, count) {
   const s = data.bySubject[t.subject];
   return `<article class="tcard tcard--teacher">
     <div class="tcard__who">
-      <span class="avatar" style="--c:${esc(s?.color || "var(--brand)")}" aria-hidden="true">${esc(initials(t.name))}</span>
+      ${avatarHtml(t.name, s?.color, t.avatar)}
       <div><strong>${esc(t.name)}</strong><p class="tcard__job">${esc(s?.label || "")}${t.years ? ` · ${t.years} ans d'expérience` : ""}</p></div>
     </div>
     <p>${esc(t.bio)}</p>

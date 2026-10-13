@@ -62,6 +62,15 @@ create table if not exists public.profiles (
   created_at     timestamptz not null default now()
 );
 
+-- Photo de profil (professeurs) : URL publique d'un fichier du bucket « avatars »,
+-- obligatoirement dans le dossier du propriétaire du profil.
+alter table public.profiles add column if not exists avatar_url text;
+alter table public.profiles drop constraint if exists profiles_avatar_url_check;
+alter table public.profiles add constraint profiles_avatar_url_check check (
+  avatar_url is null
+  or avatar_url ~ ('^https://[a-z0-9-]+\.supabase\.co/storage/v1/object/public/avatars/' || id::text || '/[A-Za-z0-9._-]+(\?[A-Za-z0-9=&._-]*)?$')
+) not valid;
+
 -- ---------- Cours et vidéos ----------
 create table if not exists public.courses (
   id         uuid primary key default gen_random_uuid(),
@@ -149,7 +158,7 @@ create trigger on_auth_user_created
 
 -- ---------- Liste publique des professeurs (sans coordonnées) ----------
 create or replace view public.public_teachers as
-  select id, first_name, last_name, subject, levels, years, bio
+  select id, first_name, last_name, subject, levels, years, bio, avatar_url
   from public.profiles
   where role = 'prof' and teacher_status = 'approved';
 grant select on public.public_teachers to anon, authenticated;
@@ -195,7 +204,7 @@ grant execute on function public.admin_list_teachers() to authenticated;
 -- ---------- Droits par colonne ----------
 -- Un utilisateur peut modifier son profil, mais jamais son rôle, son statut ni le droit administrateur.
 revoke insert, update, delete on public.profiles from anon, authenticated;
-grant update (first_name, last_name, phone, school, level, series, subject, levels, years, bio)
+grant update (first_name, last_name, phone, school, level, series, subject, levels, years, bio, avatar_url)
   on public.profiles to authenticated;
 -- Un professeur ne peut pas mettre son propre cours « à la une ».
 revoke insert, update on public.courses from anon, authenticated;
@@ -263,3 +272,24 @@ drop policy if exists "videos: suppression de ses fichiers" on storage.objects;
 create policy "videos: suppression de ses fichiers" on storage.objects for delete to authenticated
   using (bucket_id = 'videos'
          and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin()));
+
+-- ---------- Photos de profil ----------
+-- Bucket public « avatars » : 5 Mo maximum, JPG / PNG / WebP.
+-- Chaque utilisateur gère uniquement les fichiers de son dossier : avatars/<son id>/...
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('avatars', 'avatars', true, 5242880, array['image/jpeg', 'image/png', 'image/webp'])
+on conflict (id) do nothing;
+
+drop policy if exists "avatars: lire son dossier" on storage.objects;
+create policy "avatars: lire son dossier" on storage.objects for select to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "avatars: envoyer dans son dossier" on storage.objects;
+create policy "avatars: envoyer dans son dossier" on storage.objects for insert to authenticated
+  with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "avatars: modifier son dossier" on storage.objects;
+create policy "avatars: modifier son dossier" on storage.objects for update to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text)
+  with check (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists "avatars: supprimer dans son dossier" on storage.objects;
+create policy "avatars: supprimer dans son dossier" on storage.objects for delete to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
