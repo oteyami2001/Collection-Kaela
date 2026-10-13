@@ -8,8 +8,8 @@
 //   - la clé publique (« anon public » ou « publishable key » sb_publishable_…) → supabaseAnonKey
 // Ces deux valeurs peuvent être publiques. Ne mettez JAMAIS ici la clé « service_role ».
 window.CK_CONFIG = {
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://shyvfcadskhwcbktdgil.supabase.co",
+  supabaseAnonKey: "sb_publishable_wPzA4COzU2GPmm0AA1AsZQ_X28dK7Uj",
 
   // Afficher les cours et professeurs d'exemple (data/*.json) à côté des vrais.
   // Passez à false quand vos vrais professeurs auront publié leurs cours.
