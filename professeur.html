@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professeur — Préparation d'Examen Collection Kaela</title>
+  <meta name="description" content="Profil d'un professeur de Collection Kaela et ses cours en vidéo pour le BEPC et le BAC.">
+  <meta name="theme-color" content="#0a6cbd">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261013c">
+</head>
+<body>
+  <a class="skip-link" href="#main">Aller au contenu</a>
+  <div id="site-header"></div>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li><a href="professeurs.html">Professeurs</a></li><li aria-current="page" id="crumbName">Profil</li></ol>
+        <div class="profile-hero" id="profileHero"><p class="muted">Chargement du profil…</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="cours" style="padding-top:40px">
+      <div class="container">
+        <header class="section__head">
+          <h2>Les cours de ce professeur</h2>
+          <p id="coursesCount"></p>
+        </header>
+        <div class="cards" id="teacherCourses"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/config.js?v=20261013c"></script>
+  <script src="assets/js/common.js?v=20261013c"></script>
+  <script src="assets/js/api.js?v=20261013c"></script>
+  <script src="assets/js/professeur.js?v=20261013c"></script>
+</body>
+</html>

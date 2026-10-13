@@ -28,7 +28,9 @@
   const books = await load("books");
   $("#books").innerHTML = books.map(bookCard).join("");
 
-  $("#teachers").innerHTML = data.teachers.filter(t => !t.pending).slice(0, 4)
+  const shownTeachers = directoryTeachers(data);
+  if (shownTeachers.some(t => t.sample)) $("#teachersNote").textContent = "Profils d'exemple — ils seront remplacés par les vrais professeurs inscrits.";
+  $("#teachers").innerHTML = shownTeachers.slice(0, 4)
     .map(t => teacherCard(t, data, countBy("teacher", t.id))).join("");
 
   $("#testimonials").innerHTML = testimonials.map(t => `

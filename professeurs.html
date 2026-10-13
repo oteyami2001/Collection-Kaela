@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css?v=20261013b">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20261013c">
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -21,13 +21,15 @@
       <div class="container">
         <ol class="crumbs"><li><a href="index.html">Accueil</a></li><li aria-current="page">Professeurs</li></ol>
         <h1>Nos professeurs</h1>
-        <p>Choisissez le professeur dont la pédagogie vous convient. <em>Profils d'exemple.</em></p>
+        <p>Choisissez le professeur dont la pédagogie vous convient, puis découvrez ses cours.</p>
       </div>
     </section>
 
     <section class="section" style="padding-top:32px">
       <div class="container">
         <div class="filters" role="group" aria-label="Filtrer par matière" id="subjectFilters"></div>
+        <p class="alert directory-note" id="sampleNote" hidden>Profils d'exemple : ils seront remplacés par les vrais professeurs dès leur validation.</p>
+        <p class="muted" id="teacherCount" aria-live="polite"></p>
         <div class="teachers" id="teachers"></div>
       </div>
     </section>
@@ -45,30 +47,9 @@
   </main>
 
   <div id="site-footer"></div>
-  <script src="assets/js/config.js?v=20261013b"></script>
-  <script src="assets/js/common.js?v=20261013b"></script>
-  <script src="assets/js/api.js?v=20261013b"></script>
-  <script>
-    (async () => {
-      const data = await boot();
-      const count = id => data.publicCourses.filter(c => c.teacher === id).length;
-      const initial = new URLSearchParams(location.search).get("matiere") || "all";
-      $("#subjectFilters").innerHTML = [{ id: "all", label: "Toutes les matières" }, ...data.subjects].map(s =>
-        `<button class="chip chip--filter" type="button" data-filter="${esc(s.id)}" aria-pressed="${s.id === initial}">${esc(s.label)}</button>`).join("");
-      const render = f => {
-        const list = data.teachers.filter(t => !t.pending && (f === "all" || t.subject === f));
-        $("#teachers").innerHTML = list.length
-          ? list.map(t => teacherCard(t, data, count(t.id))).join("")
-          : `<p class="empty">Aucun professeur pour cette matière pour l'instant.</p>`;
-      };
-      $("#subjectFilters").addEventListener("click", e => {
-        const b = e.target.closest("[data-filter]");
-        if (!b) return;
-        $$("[data-filter]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-        render(b.dataset.filter);
-      });
-      render(initial);
-    })();
-  </script>
+  <script src="assets/js/config.js?v=20261013c"></script>
+  <script src="assets/js/common.js?v=20261013c"></script>
+  <script src="assets/js/api.js?v=20261013c"></script>
+  <script src="assets/js/professeurs.js?v=20261013c"></script>
 </body>
 </html>
