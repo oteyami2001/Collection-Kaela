@@ -45,16 +45,18 @@
   </main>
 
   <div id="site-footer"></div>
+  <script src="assets/js/config.js"></script>
   <script src="assets/js/common.js"></script>
+  <script src="assets/js/api.js"></script>
   <script>
     (async () => {
       const data = await boot();
-      const count = id => data.courses.filter(c => c.teacher === id).length;
+      const count = id => data.publicCourses.filter(c => c.teacher === id).length;
       const initial = new URLSearchParams(location.search).get("matiere") || "all";
       $("#subjectFilters").innerHTML = [{ id: "all", label: "Toutes les matières" }, ...data.subjects].map(s =>
         `<button class="chip chip--filter" type="button" data-filter="${esc(s.id)}" aria-pressed="${s.id === initial}">${esc(s.label)}</button>`).join("");
       const render = f => {
-        const list = data.teachers.filter(t => f === "all" || t.subject === f);
+        const list = data.teachers.filter(t => !t.pending && (f === "all" || t.subject === f));
         $("#teachers").innerHTML = list.length
           ? list.map(t => teacherCard(t, data, count(t.id))).join("")
           : `<p class="empty">Aucun professeur pour cette matière pour l'instant.</p>`;

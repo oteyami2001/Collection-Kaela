@@ -12,27 +12,21 @@ const load = async name => {
 const LEVELS = { bepc: "BEPC", bac: "BAC" };
 const LEVEL_LONG = { bepc: "BEPC · 3e", bac: "BAC · Terminale" };
 
-// ----- Demo storage (front-end only: replace with a real backend before launch) -----
+// Per-browser storage (demo mode, progress on sample courses, small UI preferences).
 const store = {
   get(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } },
   set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch {} },
   remove(key) { try { localStorage.removeItem(key); } catch {} }
 };
-const getUser = () => store.get("ck-user", null);
-const setUser = u => store.set("ck-user", u);
-const logout = () => { store.remove("ck-user"); location.href = "index.html"; };
-const getLocalCourses = () => store.get("ck-courses", []);
-const getProgress = () => store.get("ck-progress", {});
 
-// Loads every dataset and merges the courses a demo teacher published in this browser.
+// Loads the signed-in user and the catalog through the data layer (assets/js/api.js).
+// publicCourses = what visitors may see: published courses of validated teachers.
 async function loadAll() {
-  const [subjects, teachers, courses] = await Promise.all(["subjects", "teachers", "courses"].map(load));
-  const user = getUser();
-  if (user?.role === "prof") {
-    teachers.push({ id: "me", name: `${user.firstName} ${user.lastName}`, subject: user.subject, levels: user.levels || [], years: user.years, bio: user.bio || "" });
-  }
-  courses.push(...getLocalCourses());
-  return { subjects, teachers, courses, bySubject: index(subjects), byTeacher: index(teachers) };
+  await api.init();
+  const [user, cat] = await Promise.all([api.user(), api.catalog()]);
+  const byTeacher = index(cat.teachers);
+  const publicCourses = cat.courses.filter(c => c.published !== false && byTeacher[c.teacher] && !byTeacher[c.teacher].pending);
+  return { ...cat, user, publicCourses, bySubject: index(cat.subjects), byTeacher };
 }
 const index = list => Object.fromEntries(list.map(x => [x.id, x]));
 const totalMinutes = c => c.lessons.reduce((n, l) => n + (l.d || 0), 0);
@@ -102,11 +96,11 @@ const CONTACT = {
 };
 const tel = n => `tel:${n.replace(/\s+/g, "")}`;
 
-function renderHeader(subjects) {
-  const user = getUser();
+function renderHeader(subjects, user) {
   const actions = user
-    ? `<a href="espace.html" class="btn btn--ghost">Mon espace</a>
-       <button type="button" class="btn btn--secondary" id="logout">Se déconnecter</button>`
+    ? `${user.isAdmin ? `<a href="admin.html" class="btn btn--ghost btn--sm">Administration</a>` : ""}
+       <a href="espace.html" class="btn btn--ghost btn--sm">Mon espace</a>
+       <button type="button" class="btn btn--secondary btn--sm" id="logout">Se déconnecter</button>`
     : `<a href="connexion.html" class="btn btn--ghost">Se connecter</a>
        <a href="inscription.html" class="btn btn--primary">S'inscrire</a>`;
   $("#site-header").outerHTML = `
@@ -131,7 +125,7 @@ function renderHeader(subjects) {
           </li>
           <li class="nav__item"><a class="nav__link" href="index.html#livres">Nos livres</a></li>
           <li class="nav__item"><a class="nav__link" href="professeurs.html">Professeurs</a></li>
-          <li class="nav__item"><a class="nav__link" href="inscription.html?role=prof">Devenir professeur</a></li>
+          ${user ? "" : `<li class="nav__item"><a class="nav__link" href="inscription.html?role=prof">Devenir professeur</a></li>`}
         </ul>
         <div class="nav__actions">${actions}</div>
       </nav>
@@ -154,7 +148,7 @@ function renderHeader(subjects) {
   megaBtn.addEventListener("click", () => setMega(mega.hidden));
   document.addEventListener("keydown", e => { if (e.key === "Escape" && !mega.hidden) { setMega(false); megaBtn.focus(); } });
   document.addEventListener("click", e => { if (!e.target.closest(".has-menu")) setMega(false); });
-  $("#logout")?.addEventListener("click", logout);
+  $("#logout")?.addEventListener("click", async () => { await api.signOut(); location.href = "index.html"; });
 }
 
 function renderFooter() {
@@ -201,8 +195,14 @@ function observeReveal() {
 
 // Every page calls this first; it resolves with the loaded data.
 async function boot() {
-  const data = await loadAll();
-  renderHeader(data.subjects);
+  let data;
+  try { data = await loadAll(); }
+  catch (err) {
+    console.error(err);
+    data = { subjects: await load("subjects"), teachers: [], courses: [], publicCourses: [], user: null, bySubject: {}, byTeacher: {}, offline: true };
+    data.bySubject = index(data.subjects);
+  }
+  renderHeader(data.subjects, data.user);
   renderFooter();
   return data;
 }

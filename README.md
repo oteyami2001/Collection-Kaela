@@ -23,7 +23,9 @@ python3 -m http.server 8000
 | `professeurs.html` | Liste des professeurs, filtre par matière |
 | `inscription.html` | Inscription élève (niveau BEPC/BAC + série) ou professeur (matière, niveaux) — `?role=prof` pré-sélectionne professeur |
 | `connexion.html` | Connexion |
-| `espace.html` | Espace élève (cours de son niveau, progression) ou espace professeur (publier un cours en vidéo) |
+| `espace.html` | Espace élève (cours de son niveau, progression) ou espace professeur (publier un cours : fichiers vidéo ou liens YouTube, brouillons) |
+| `admin.html` | Administration : valider les professeurs, mettre des cours à la une, masquer ou supprimer |
+| `motdepasse.html` | Mot de passe oublié |
 
 ## Modifier le contenu
 
@@ -38,15 +40,18 @@ python3 -m http.server 8000
 
 Les professeurs, cours et témoignages actuels sont **des exemples** à remplacer par les vrais.
 
-## Important : mode démonstration
+## Base de données (Supabase)
 
-Les comptes et les cours publiés par les professeurs sont enregistrés **uniquement dans le navigateur** (`localStorage`) ; le mot de passe n'est jamais enregistré. Pour la mise en ligne réelle, il faut brancher un serveur :
+Le site utilise [Supabase](https://supabase.com) pour les comptes, les cours, les vidéos et la progression.
+**Guide d'installation pas à pas : [`supabase/README.md`](supabase/README.md).**
 
-1. **Authentification** (comptes élèves / professeurs, mots de passe sécurisés) — ex. Supabase, Firebase ou une API Laravel / Node.
-2. **Base de données** pour les cours, leçons, professeurs et progression.
-3. **Hébergement des vidéos** — YouTube (non répertoriée), Vimeo, ou un service vidéo dédié.
+- `supabase/schema.sql` : tables, règles de sécurité et stockage des vidéos (à exécuter une fois dans Supabase)
+- `assets/js/config.js` : l'adresse du projet et la clé publique à renseigner
+- `assets/js/api.js` : toute la communication avec la base (inscription, connexion, catalogue, publication, envoi des vidéos, progression, administration)
+- `admin.html` : validation des professeurs et gestion des cours (comptes administrateurs)
+- `motdepasse.html` : mot de passe oublié
 
-Les fonctions à remplacer sont regroupées dans `assets/js/common.js` (`getUser`, `setUser`, `getLocalCourses`, `getProgress`) et `assets/js/auth.js`.
+Tant que `config.js` est vide, le site fonctionne en **mode démonstration** : les comptes et les cours sont enregistrés uniquement dans le navigateur, et le mot de passe n'est jamais enregistré.
 
 ## Prochaines étapes prévues
 

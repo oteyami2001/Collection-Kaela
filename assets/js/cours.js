@@ -1,16 +1,10 @@
 // Course page: video player, lesson list with progress, prev/next navigation.
 
-const youtubeId = url => {
-  if (!url) return "";
-  const m = String(url).match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
-  return m ? m[1] : /^[\w-]{11}$/.test(url) ? url : "";
-};
-
 (async () => {
   const data = await boot();
   const slug = new URLSearchParams(location.search).get("c");
   const course = data.courses.find(c => c.slug === slug);
-  if (!course) {
+  if (!course || !course.lessons.length) {
     $("#title").textContent = "Cours introuvable";
     $("#summary").innerHTML = `Ce cours n'existe pas ou a été retiré. <a href="catalogue.html">Voir tous les cours</a>`;
     $("#course").hidden = true;
@@ -27,6 +21,7 @@ const youtubeId = url => {
     <span class="badge badge--soft">${esc(subject?.label || "")}</span>
     <span class="badge badge--soft">${course.lessons.length} vidéos · ${fmtDuration(totalMinutes(course))}</span>`;
   $("#title").textContent = course.title;
+  if (course.published === false) $("#badges").insertAdjacentHTML("afterbegin", `<span class="badge badge--draft">Brouillon — visible par vous seul</span>`);
   $("#summary").textContent = course.summary || "";
   $("#course").style.setProperty("--c", subject?.color || "var(--brand)");
 
@@ -48,7 +43,7 @@ const youtubeId = url => {
       <p class="muted">${esc(book.tagline)}</p><a class="link-arrow" href="index.html#livres">Voir nos livres →</a></div>`;
   }
 
-  const progress = getProgress();
+  const progress = await api.progress(data.courses);
   const done = new Set(progress[slug] || []);
   let current = Math.max(0, course.lessons.findIndex((_, i) => !done.has(i)));
 
@@ -56,8 +51,11 @@ const youtubeId = url => {
     current = i;
     const lesson = course.lessons[i];
     const id = youtubeId(lesson.v);
+    const isFile = !id && /^https:\/\//.test(lesson.v || "");
     $("#player").innerHTML = id
       ? `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="${esc(lesson.t)}" allow="accelerometer; encrypted-media; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>`
+      : isFile
+      ? `<video src="${esc(lesson.v)}" controls preload="metadata" playsinline title="${esc(lesson.t)}"></video>`
       : `<div class="player__placeholder"><div><span class="player__icon" aria-hidden="true"></span>
            <p><strong>${esc(lesson.t)}</strong><br>La vidéo de cette leçon sera ajoutée par le professeur.</p></div></div>`;
     $("#lessonTitle").textContent = `${i + 1}. ${lesson.t}`;
@@ -85,15 +83,21 @@ const youtubeId = url => {
   });
   $("#prev").addEventListener("click", () => current > 0 && show(current - 1));
   $("#next").addEventListener("click", () => current < course.lessons.length - 1 && show(current + 1));
-  $("#markDone").addEventListener("click", () => {
-    done.has(current) ? done.delete(current) : done.add(current);
-    store.set("ck-progress", { ...getProgress(), [slug]: [...done] });
+  $("#markDone").addEventListener("click", async () => {
+    const i = current, nowDone = !done.has(i);
+    nowDone ? done.add(i) : done.delete(i);
     renderToc();
+    try { await api.setDone(course, i, nowDone); }
+    catch (err) {
+      nowDone ? done.delete(i) : done.add(i);
+      renderToc();
+      alert(err.message);
+    }
   });
 
   show(current);
 
-  const related = data.courses.filter(c => c.subject === course.subject && c.slug !== slug)
+  const related = data.publicCourses.filter(c => c.subject === course.subject && c.slug !== slug)
     .sort((a, b) => (b.level === course.level) - (a.level === course.level)).slice(0, 3);
   if (related.length) $("#related").innerHTML = related.map(c => courseCard(c, data)).join("");
   else $("#related").closest("section").hidden = true;
