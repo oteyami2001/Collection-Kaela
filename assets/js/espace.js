@@ -172,38 +172,87 @@ function teacherView(data, user, welcome) {
   });
 }
 
-// "Mon profil": profile picture with the initials as fallback, uploaded through api.uploadAvatar.
+// "Mon profil" → "Photo de profil": choose a photo, preview it, then « Enregistrer ma photo ».
+// The block is built here (not only in espace.html) so it also appears if an older,
+// cached espace.html is served.
 function setupAvatar(user, subject) {
   const name = `${user.firstName} ${user.lastName}`;
-  const show = url => { $("#pAvatar").innerHTML = avatarHtml(name, subject?.color, url, "avatar--lg"); };
-  const msg = (text, ok) => { const el = $("#avatarMsg"); el.textContent = text; el.hidden = !text; el.classList.toggle("alert--ok", !!ok); };
-  const setLabel = () => { $("#avatarBtn").textContent = user.avatarUrl ? "Changer ma photo" : "Choisir une photo"; };
-  show(user.avatarUrl);
-  setLabel();
+  const avatarEl = $("#pAvatar");
+  avatarEl.className = "";                        // older markup used the span itself as the circle
+  const showMain = url => { avatarEl.innerHTML = avatarHtml(name, subject?.color, url, "avatar--lg"); };
+  showMain(user.avatarUrl);
 
-  $("#avatarInput").addEventListener("change", async e => {
-    const file = e.target.files[0];
-    e.target.value = "";                         // allow choosing the same file again
-    if (!file) return;
+  // Remove the controls of the previous version if a cached page still has them
+  ["#avatarInput", "#avatarBtn", "#avatarMsg", ".avatar-edit small"].forEach(sel => $(sel)?.remove());
+  let field = $("#photoField");
+  if (!field) {
+    field = Object.assign(document.createElement("div"), { id: "photoField", className: "photo-field" });
+    $("#pBio").after(field);
+  }
+  field.innerHTML = `
+    <h3>Photo de profil</h3>
+    <div class="photo-field__row">
+      <div class="photo-field__preview" id="photoPreview" hidden>
+        <span class="avatar avatar--lg"><img id="photoPreviewImg" alt="Aperçu de la photo choisie"></span>
+        <small>Aperçu</small>
+      </div>
+      <div class="photo-field__controls">
+        <input class="sr-only" id="photoInput" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+        <label class="btn btn--secondary btn--sm" for="photoInput" id="photoChoose">Choisir une photo</label>
+        <small>JPG, PNG ou WebP — 5 Mo maximum</small>
+        <small class="photo-field__file" id="photoFileName" hidden></small>
+        <button class="btn btn--primary btn--sm" type="button" id="photoSave" disabled>Enregistrer ma photo</button>
+      </div>
+    </div>
+    <p class="alert" id="photoMsg" role="status" hidden></p>`;
+
+  const input = $("#photoInput"), save = $("#photoSave");
+  const msg = (text, ok) => { const el = $("#photoMsg"); el.textContent = text; el.hidden = !text; el.classList.toggle("alert--ok", !!ok); };
+  let file = null, previewUrl = "";
+  const clearPreview = () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl);
+    previewUrl = ""; file = null;
+    $("#photoPreview").hidden = true;
+    $("#photoFileName").hidden = true;
+    save.disabled = true;
+  };
+
+  input.addEventListener("change", () => {
+    const chosen = input.files[0];
+    input.value = "";                             // allow choosing the same file again
+    if (!chosen) return;
     msg("");
-    try { checkAvatarFile(file); } catch (err) { return msg(err.message); }
-    const previous = user.avatarUrl;
-    const preview = URL.createObjectURL(file);   // show the chosen photo right away
-    $("#pAvatar").innerHTML = avatarHtml(name, subject?.color, "", "avatar--lg is-uploading");
-    $(".avatar", $("#pAvatar")).insertAdjacentHTML("beforeend", `<img src="${preview}" alt="">`);
-    $("#avatarBtn").textContent = "Envoi…";
-    $("#avatarInput").disabled = true;
+    try { checkAvatarFile(chosen); }
+    catch (err) { clearPreview(); return msg(err.message); }
+    clearPreview();
+    file = chosen;
+    previewUrl = URL.createObjectURL(chosen);     // preview before sending
+    $("#photoPreviewImg").src = previewUrl;
+    $("#photoPreview").hidden = false;
+    const size = chosen.size < 1048576 ? `${Math.max(1, Math.round(chosen.size / 1024))} Ko` : `${(chosen.size / 1048576).toFixed(1).replace(".", ",")} Mo`;
+    $("#photoFileName").textContent = `${chosen.name} · ${size}`;
+    $("#photoFileName").hidden = false;
+    save.disabled = false;
+  });
+
+  save.addEventListener("click", async () => {
+    if (!file) return;
+    save.disabled = true; input.disabled = true;
+    save.textContent = "Enregistrement…";
+    msg("");
     try {
       const url = await api.uploadAvatar(user, file);
-      show(url);
+      showMain(url);                              // initials replaced by the saved photo
+      clearPreview();
+      $("#photoChoose").textContent = "Changer de photo";
       msg("Photo de profil enregistrée.", true);
     } catch (err) {
-      show(previous);
+      save.disabled = false;
       msg(err.message);
     } finally {
-      URL.revokeObjectURL(preview);
-      $("#avatarInput").disabled = false;
-      setLabel();
+      input.disabled = false;
+      save.textContent = "Enregistrer ma photo";
     }
   });
+  if (user.avatarUrl) $("#photoChoose").textContent = "Changer de photo";
 }

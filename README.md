@@ -40,6 +40,10 @@ python3 -m http.server 8000
 
 Les professeurs, cours et témoignages actuels sont **des exemples** à remplacer par les vrais.
 
+### Mises à jour et cache des navigateurs
+
+Les pages chargent les fichiers CSS et JavaScript avec un numéro de version (`styles.css?v=20261013b`, `espace.js?v=20261013b`…). Quand vous modifiez un fichier de `assets/`, changez ce numéro dans les pages HTML : les navigateurs téléchargeront alors la nouvelle version au lieu de garder l'ancienne en mémoire. GitHub Pages laisse aussi les navigateurs garder une page jusqu'à 10 minutes : après une mise à jour, attendez quelques minutes ou rechargez avec Ctrl+F5 (Cmd+Maj+R sur Mac).
+
 ## Base de données (Supabase)
 
 Le site utilise [Supabase](https://supabase.com) pour les comptes, les cours, les vidéos et la progression.

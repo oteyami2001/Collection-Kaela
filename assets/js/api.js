@@ -260,6 +260,9 @@ const supa = {
       sampleContent(), this.user()
     ]);
     for (const r of [subjectsRes, teachersRes, coursesRes]) if (r.error) console.error(r.error);
+    if (teachersRes.data?.length && !("avatar_url" in teachersRes.data[0])) {
+      console.warn("public_teachers ne contient pas avatar_url : les photos des professeurs ne peuvent pas s'afficher (voir supabase/migrations/2026-10-13-photos-profil.sql).");
+    }
     const subjects = subjectsRes.data?.length ? subjectsRes.data : await load("subjects");
     const teachers = (teachersRes.data || []).map(t => ({ id: t.id, name: `${t.first_name} ${t.last_name}`, subject: t.subject, levels: t.levels || [], years: t.years, bio: t.bio || "", avatar: t.avatar_url || "" }));
     if (user?.role === "prof" && !teachers.some(t => t.id === user.id)) {
@@ -354,21 +357,35 @@ const supa = {
   // the previous file.
   async uploadAvatar(user, file) {
     checkAvatarFile(file);
+    // 1. The Supabase user currently signed in: its id names the storage folder (auth.uid()).
+    const { data: auth, error: authError } = await sb.auth.getUser();
+    if (authError || !auth?.user) throw new Error("Session expirée : reconnectez-vous puis réessayez.");
+    const uid = auth.user.id;
+    // 2. Upload to avatars/<uid>/profile-<time>.jpg — a new name each time, so browsers never
+    //    keep showing a cached old photo; the previous file is removed afterwards.
     const blob = await squareJpeg(file, 512);
     const ext = blob ? "jpg" : AVATAR_TYPES[file.type];
-    const path = `${user.id}/profile-${Date.now()}.${ext}`;
+    const path = `${uid}/profile-${Date.now()}.${ext}`;
     const bucket = sb.storage.from(AVATAR_BUCKET);
     const { error } = await bucket.upload(path, blob || file, { contentType: blob ? "image/jpeg" : file.type, cacheControl: "31536000", upsert: false });
-    if (error) fail(error);
+    if (error) {
+      console.error("Envoi de la photo (bucket avatars) refusé :", error);
+      fail(error);
+    }
+    // 3. Public URL, 4. saved in public.profiles.avatar_url (checked: exactly one row updated)
     const url = bucket.getPublicUrl(path).data.publicUrl;
-    const { error: saveError } = await sb.from("profiles").update({ avatar_url: url }).eq("id", user.id);
-    if (saveError) {
+    const { data: saved, error: saveError } = await sb.from("profiles").update({ avatar_url: url }).eq("id", uid).select("id");
+    if (saveError || !saved?.length) {
+      console.error("Enregistrement de profiles.avatar_url refusé :", saveError || "aucune ligne modifiée",
+        "— vérifiez le droit UPDATE sur la colonne avatar_url (supabase/migrations/2026-10-13-photos-profil.sql).");
       await bucket.remove([path]);
-      fail(saveError);
+      throw new Error(/permission denied|row-level security/i.test(saveError?.message || "") || !saveError
+        ? "La photo n'a pas pu être enregistrée dans votre profil : la base n'autorise pas encore cette modification. Contactez l'administrateur du site."
+        : frError(saveError));
     }
     const marker = `/object/public/${AVATAR_BUCKET}/`;
     const previous = (user.avatarUrl || "").includes(marker) ? user.avatarUrl.split(marker)[1].split("?")[0] : "";
-    if (previous && previous !== path && previous.startsWith(`${user.id}/`)) {
+    if (previous && previous !== path && previous.startsWith(`${uid}/`)) {
       bucket.remove([previous]).then(({ error: e }) => e && console.warn("Ancienne photo non supprimée", e));
     }
     user.avatarUrl = url;
